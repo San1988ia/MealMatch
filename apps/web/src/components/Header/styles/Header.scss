@@ -1,0 +1,37 @@
+@import "../../../styles/_variables.scss";
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0.5rem 1rem;
+}
+
+.header__title {
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  gap: 0; 
+}
+
+.header__title .meal {
+  color: $color-accent-orange;
+}
+
+.header__title .match {
+  color: $color-accent-yellow;
+}
+
+.header__logo {
+	width: 40px;
+	height: 40px;
+	object-fit: contain;
+  margin-right: 0.25rem; 
+}
+
+.bagel-fat-one-regular {
+  font-family: "Bagel Fat One", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
