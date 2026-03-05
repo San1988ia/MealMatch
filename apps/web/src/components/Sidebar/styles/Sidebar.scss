@@ -1,4 +1,5 @@
-@import "../../../styles/_variables.scss";
+@use "../../../styles/_variables" as *;
+
 .sidebar__nav {
   position: fixed;
   top: 0;
@@ -47,10 +48,26 @@
 }
 
 .sidebar__logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  color: #333;
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  margin: 0 0 2rem 0;
+  gap: 0;
+}
+
+.sidebar__logo-image {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-right: 0.25rem;
+}
+
+.sidebar__logo .meal {
+  color: $color-accent-orange;
+}
+
+.sidebar__logo .match {
+  color: $color-accent-yellow;
 }
 
 .sidebar__link {
@@ -68,12 +85,12 @@
   margin-bottom: 0.5rem;
 
   &:hover {
-    background-color: #e0e0e0;
+    background-color: #e0e0e0; 
     color: #333;
   }
 
   &.is-active {
-    background-color: $color-accent-orange;
+    background-color: $color-accent-orange !important;
     color: white;
   }
 }

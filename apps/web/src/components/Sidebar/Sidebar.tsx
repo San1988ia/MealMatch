@@ -33,7 +33,7 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
 
       <aside className={`sidebar ${isOpen ? "is-open" : ""}`}>
         <div className="sidebar-off-screen">
-          <div className="sidebar__logo">MealMatch</div>
+          <div className="sidebar__logo"><img src="/images/HamburgerHeart.PNG" alt="MealMatch logo" className="sidebar__logo-image" /><span className="meal">Meal</span><span className="match">Match</span></div>
 
           <button
             className={`sidebar__link ${currentPage === "home" ? "is-active" : ""}`}
