@@ -1,3 +1,6 @@
+import { useState } from "react";
+import "./styles/Sidebar.scss";
+
 type Page = "home" | "recipes";
 
 type SidebarProps = {
@@ -6,33 +9,60 @@ type SidebarProps = {
 };
 
 export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
-  return (
-    <aside className="sidebar">
-      <div className="sidebar__logo">MealMatch</div>
+  const [isOpen, setIsOpen] = useState(false);
 
+  const handleNavigate = (page: Page) => {
+    onNavigate(page);
+    setIsOpen(false);
+  };
+
+  return (
+    <>
       <nav className="sidebar__nav">
         <button
-          className={`sidebar__link ${currentPage === "home" ? "is-active" : ""}`}
-          onClick={() => onNavigate("home")}
+          className="ham-menu"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle sidebar"
           type="button"
         >
-          Home
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
-
-        <button
-          className={`sidebar__link ${currentPage === "recipes" ? "is-active" : ""}`}
-          onClick={() => onNavigate("recipes")}
-          type="button"
-        >
-          Recipes
-        </button>
-
-        <div className="sidebar__divider" />
-
-        <div className="muted" style={{ fontSize: 12 }}>
-          (kategorier kommer senare)
-        </div>
       </nav>
-    </aside>
+
+      <aside className={`sidebar ${isOpen ? "is-open" : ""}`}>
+        <div className="sidebar-off-screen">
+              <h1 className="header__title bagel-fat-one-regular">
+              <div className="sidebar__logo">
+                <img src="/images/HamburgerHeart.PNG" alt="MealMatch logo" className="sidebar__logo-image" />
+                <span className="meal">Meal</span>
+                <span className="match">Match</span>
+              </div>
+               </h1>
+          <button
+            className={`sidebar__link ${currentPage === "home" ? "is-active" : ""}`}
+            onClick={() => handleNavigate("home")}
+            type="button"
+          >
+            Home
+          </button>
+
+          <button
+            className={`sidebar__link ${currentPage === "recipes" ? "is-active" : ""}`}
+            onClick={() => handleNavigate("recipes")}
+            type="button"
+          >
+            Recipes
+          </button>
+
+          <div className="sidebar__divider" />
+
+          <div className="muted" style={{ fontSize: 12 }}>
+            (kategorier kommer senare)
+          </div>
+        </div>
+      </aside>
+    </>
   );
 }
