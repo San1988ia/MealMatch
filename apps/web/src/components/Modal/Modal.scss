@@ -1,0 +1,88 @@
+@use "../../styles/variables" as *;
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.48);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: $color-card;
+  padding: 20px;
+  border-radius: $radius-lg;
+  max-width: 480px;
+  width: clamp(320px, 90vw, 480px);
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 6px;
+  border-radius: 999px;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.modal-close:hover {
+  color: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.modal-body input,
+.modal-body select {
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  font: inherit;
+}
+
+.modal-body button {
+  min-width: 100px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  font: inherit;
+  cursor: pointer;
+  transition: background 120ms ease, transform 120ms ease;
+}
+
+.modal-body button:hover {
+  transform: translateY(-1px);
+}
+
+.modal-body button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.modal-body button:nth-of-type(2) {
+  background: $color-primary;
+  color: white;
+  border-color: transparent;
+}
+
+.modal-body button:nth-of-type(2):hover {
+  background: darken($color-primary, 6%);
+}
