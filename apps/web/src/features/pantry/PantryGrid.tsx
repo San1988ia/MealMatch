@@ -39,7 +39,7 @@ export function PantryGrid() {
       { field: "unit", headerName: "Unit", editable: true, width: 120 },
       {
         headerName: "Actions",
-        width: 90,
+        width: 120,
         cellRenderer: (params: any) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
           <div className="pantry__cell-actions">
             <button
