@@ -13,10 +13,10 @@
 
 .modal-content {
   background: $color-card;
-  padding: 20px;
+  padding: 1rem;
   border-radius: $radius-lg;
-  max-width: 480px;
-  width: clamp(320px, 90vw, 480px);
+  max-width: 27rem;
+  width: clamp(18rem, 90vw, 27rem);
   position: relative;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(0, 0, 0, 0.07);
@@ -25,22 +25,22 @@
 .modal-header {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .modal-body {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .modal-close {
   background: none;
   border: none;
-  font-size: 22px;
+  font-size: 1.25rem;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.6);
-  padding: 6px;
+  padding: 0.25rem;
   border-radius: 999px;
   transition: background 120ms ease, color 120ms ease;
 }
@@ -53,8 +53,8 @@
 .modal-body input,
 .modal-body select {
   border: 1px solid rgba(0, 0, 0, 0.16);
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
   width: 100%;
   font: inherit;
 }

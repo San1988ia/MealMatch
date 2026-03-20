@@ -2,28 +2,28 @@
 @use "sass:color";
 
 .pantry-form__title {
-  margin: 0 0 16px;
-  font-size: 17px;
+  margin: 0 0 1rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
 .pantry-form__field {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.25rem;
 }
 
 .pantry-form__field label {
-  font-size: 14px;
+  font-size: 0.75rem;
   font-weight: 500;
 }
 
 .pantry-form__field input,
 .pantry-form__field select {
   width: 100%;
-  padding: 10px;
+  padding: 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.16);
-  border-radius: 10px;
+  border-radius: 0.5rem;
   font: inherit;
   background: $color-card;
   color: $color-text;
@@ -33,15 +33,15 @@
 
 .pantry-form__actions {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
   justify-content: flex-end;
-  margin-top: 4px;
+  margin-top: 0.25rem;
 }
 
 .pantry-form__btn {
   appearance: none;
-  padding: 10px 18px;
-  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.12);
   font: inherit;
   cursor: pointer;

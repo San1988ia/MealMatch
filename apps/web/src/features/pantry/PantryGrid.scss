@@ -2,8 +2,8 @@
 @use "sass:color";
 
 .pantry__grid-wrapper {
-  height: 320px;
-  margin-top: 12px;
+  height: 45vh;
+  margin-top: 1rem;
 
 
   .ag-cell {
@@ -12,14 +12,14 @@
   }
 
   .ag-header-cell-text {
-    font-size: 17px;
+    font-size: 1rem;
     font-weight: 700;
     color: $color-text;
   }
 }
 
 .pantry__footer {
-  margin-top: 12px;
+  margin-top: 0.75rem;
 }
 
 .pantry__add-btn {
@@ -27,8 +27,9 @@
   background: $color-primary;
   color: white;
   border: none;
-  padding: 10px 16px;
-  border-radius: 10px;
+  padding: 0.67rem 1.1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
   font: inherit;
   font-weight: 600;
   cursor: pointer;
@@ -46,19 +47,19 @@
 
 .pantry__cell-actions {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
   align-items: center;
   height: 100%;
-  padding: 0 4px;
+  padding: 0 0.25rem;
 }
 
 .pantry__cell-btn {
   appearance: none;
   border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: 8px;
-  padding: 6px;
-  width: 32px;
-  height: 32px;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
