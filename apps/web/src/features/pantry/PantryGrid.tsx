@@ -11,6 +11,7 @@ ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 import type { PantryItem } from "./pantry.types";
 import { PantryModal } from "./PantryModal";
+import "./PantryGrid.scss";
 
 export function PantryGrid() {
   const [rowData, setRowData] = useState<PantryItem[]>([
@@ -38,20 +39,27 @@ export function PantryGrid() {
       { field: "unit", headerName: "Unit", editable: true, width: 120 },
       {
         headerName: "Actions",
-        width: 120,
+        width: 90,
         cellRenderer: (params: any) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
-          <div style={{ display: 'flex', gap: '4px' }}>
+          <div className="pantry__cell-actions">
             <button
+              className="pantry__cell-btn pantry__cell-btn--edit"
               onClick={() => handleEdit(params.data)}
-              style={{ padding: '4px 8px', fontSize: '12px' }}
+              title="Edit"
             >
-              Edit
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+              </svg>
             </button>
             <button
+              className="pantry__cell-btn pantry__cell-btn--delete"
               onClick={() => handleDelete(params.data.id)}
-              style={{ padding: '4px 8px', fontSize: '12px', backgroundColor: '#ff4444', color: 'white' }}
+              title="Delete"
             >
-              Delete
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
             </button>
           </div>
         ),
@@ -83,7 +91,7 @@ export function PantryGrid() {
       <h2>Your pantry</h2>
 
       {/* ✅ Ge både wrapper och grid en tydlig höjd */}
-      <div style={{ height: 320, marginTop: 12 }}>
+      <div className="pantry__grid-wrapper">
         <div
           className="ag-theme-quartz"
           style={{ height: "100%", width: "100%" }}
@@ -92,6 +100,7 @@ export function PantryGrid() {
             rowData={rowData}
             columnDefs={columnDefs as any} // eslint-disable-line @typescript-eslint/no-explicit-any
             animateRows
+            rowHeight={48}
             onCellValueChanged={(e) => {
               const updated: PantryItem[] = [];
               e.api.forEachNode((node) => node.data && updated.push(node.data));
@@ -101,12 +110,14 @@ export function PantryGrid() {
         </div>
       </div>
 
+      <div className="pantry__footer">
       <button
-        style={{ marginTop: 12 }}
+        className="pantry__add-btn"
         onClick={handleAdd}
       >
         Add Ingredient
       </button>
+      </div>
 
       <PantryModal
         isOpen={isModalOpen}

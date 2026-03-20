@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Modal } from '../../components/Modal/Modal';
 import type { PantryItem } from './pantry.types';
+import './PantryModal.scss';
 
 interface PantryModalProps {
   isOpen: boolean;
@@ -38,51 +39,39 @@ export function PantryModal({ isOpen, onClose, onSave, item }: PantryModalProps)
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <h3>{item ? 'Edit Ingredient' : 'Add Ingredient'}</h3>
-      <div style={{ marginBottom: '16px' }}>
-        <label>
-          Name:
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="e.g., eggs, flour, milk"
-            style={{ width: '100%', padding: '8px', marginTop: '4px' }}
-          />
-        </label>
+      <h3 className="pantry-form__title">{item ? 'Edit Ingredient' : 'Add Ingredient'}</h3>
+      <div className="pantry-form__field">
+        <label>Name:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="e.g., eggs, flour, milk"
+        />
       </div>
-      <div style={{ marginBottom: '16px' }}>
-        <label>
-          Quantity:
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
-            min="0"
-            step="0.1"
-            style={{ width: '100%', padding: '8px', marginTop: '4px' }}
-          />
-        </label>
+      <div className="pantry-form__field">
+        <label>Quantity:</label>
+        <input
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+          min="0"
+          step="0.1"
+        />
       </div>
-      <div style={{ marginBottom: '16px' }}>
-        <label>
-          Unit:
-          <select
-            value={unit}
-            onChange={(e) => setUnit(e.target.value)}
-            style={{ width: '100%', padding: '8px', marginTop: '4px' }}
-          >
-            {commonUnits.map((u) => (
-              <option key={u} value={u}>
-                {u}
-              </option>
-            ))}
-          </select>
-        </label>
+      <div className="pantry-form__field">
+        <label>Unit:</label>
+        <select value={unit} onChange={(e) => setUnit(e.target.value)}>
+          {commonUnits.map((u) => (
+            <option key={u} value={u}>
+              {u}
+            </option>
+          ))}
+        </select>
       </div>
-      <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-        <button onClick={onClose}>Cancel</button>
-        <button onClick={handleSave} disabled={!name.trim()}>
+      <div className="pantry-form__actions">
+        <button className="pantry-form__btn pantry-form__btn--cancel" onClick={onClose}>Cancel</button>
+        <button className="pantry-form__btn pantry-form__btn--save" onClick={handleSave} disabled={!name.trim()}>
           {item ? 'Update' : 'Add'}
         </button>
       </div>

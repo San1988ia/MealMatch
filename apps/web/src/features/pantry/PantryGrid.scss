@@ -1,0 +1,93 @@
+@use "../../styles/variables" as *;
+@use "sass:color";
+
+.pantry__grid-wrapper {
+  height: 320px;
+  margin-top: 12px;
+
+
+  .ag-cell {
+    display: flex;
+    align-items: center;
+  }
+
+  .ag-header-cell-text {
+    font-size: 17px;
+    font-weight: 700;
+    color: $color-text;
+  }
+}
+
+.pantry__footer {
+  margin-top: 12px;
+}
+
+.pantry__add-btn {
+  appearance: none;
+  background: $color-primary;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 120ms ease, transform 120ms ease;
+
+  &:hover {
+    background: color.adjust($color-primary, $lightness: -6%);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.pantry__cell-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 100%;
+  padding: 0 4px;
+}
+
+.pantry__cell-btn {
+  appearance: none;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  padding: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+
+  svg {
+    display: block;
+    flex-shrink: 0;
+  }
+}
+
+.pantry__cell-btn--edit {
+  background: rgba(0, 0, 0, 0.04);
+  color: $color-text;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.pantry__cell-btn--delete {
+  background: #fed7d7;
+  color: #c53030;
+  border-color: transparent;
+
+  &:hover {
+    background: #fc8181;
+    color: white;
+  }
+}

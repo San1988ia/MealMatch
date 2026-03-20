@@ -1,0 +1,79 @@
+@use "../../styles/variables" as *;
+@use "sass:color";
+
+.pantry-form__title {
+  margin: 0 0 16px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.pantry-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pantry-form__field label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pantry-form__field input,
+.pantry-form__field select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
+  font: inherit;
+  background: $color-card;
+  color: $color-text;
+  outline-color: $color-primary;
+  box-sizing: border-box;
+}
+
+.pantry-form__actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.pantry-form__btn {
+  appearance: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  font: inherit;
+  cursor: pointer;
+  transition: background 120ms ease, transform 120ms ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.pantry-form__btn--cancel {
+  background: rgba(0, 0, 0, 0.04);
+  color: $color-text;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.08);
+  }
+}
+
+.pantry-form__btn--save {
+  background: $color-primary;
+  color: white;
+  border-color: transparent;
+  font-weight: 600;
+
+  &:hover:not(:disabled) {
+    background: color.adjust($color-primary, $lightness: -6%);
+  }
+}
