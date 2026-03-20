@@ -2,6 +2,7 @@ export type MealMatchRecipe = {
   id: string;
   title: string;
   image?: string;
-  source?: "edamam" | "mealdb";
+  source?: string;
+  ingredients: string[];
   url?: string;
 };

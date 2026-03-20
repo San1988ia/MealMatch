@@ -29,16 +29,19 @@ export async function edamamSearch(query: string): Promise<MealMatchRecipe[]> {
         label: string;
         image?: string;
         url?: string;
+        ingredientLines?: Array<{ food: string }>;
       };
     }>;
   };
 
   const hits = data.hits ?? [];
+
   return hits.map((h) => ({
     id: h.recipe.uri, // unique-ish id from Edamam
     title: h.recipe.label,
     image: h.recipe.image,
     url: h.recipe.url,
     source: "edamam",
+    ingredients: h.recipe.ingredientLines?.map((ing: any) => ing.food) ?? [],
   }));
 }

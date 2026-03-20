@@ -19,15 +19,25 @@ export async function mealdbSearch(query: string): Promise<MealMatchRecipe[]> {
       strMealThumb?: string;
       strSource?: string;
       strYoutube?: string;
+      [key: string]: any;
     }>;
   };
 
   const meals = data.meals ?? [];
-  return meals.map((m) => ({
-    id: m.idMeal,
-    title: m.strMeal,
-    image: m.strMealThumb,
-    url: m.strSource || m.strYoutube || undefined,
-    source: "mealdb",
-  }));
+  return meals.map((m) => {
+    const ingredients: string[] = [];
+    for (let i = 1; i <= 20; i++) {
+      const ing = (m as any)[`strIngredient${i}`];
+      if (ing) ingredients.push(ing);
+    }
+
+    return {
+      id: m.idMeal,
+      title: m.strMeal,
+      image: m.strMealThumb,
+      url: m.strSource || m.strYoutube || undefined,
+      source: "mealdb",
+      ingredients,
+    };
+  });
 }
