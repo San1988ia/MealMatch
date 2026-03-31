@@ -23,8 +23,8 @@ export function PantryModal({ isOpen, onClose, onSave, item }: PantryModalProps)
       setQuantity(item?.quantity || 1);
       setUnit(item?.unit || 'st');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]); // Only depend on isOpen to avoid cascading renders
+
+  }, [isOpen]); 
 
   const handleSave = () => {
     if (!name.trim()) return;
