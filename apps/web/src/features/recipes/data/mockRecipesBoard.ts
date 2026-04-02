@@ -1,4 +1,4 @@
-import type { Recipe } from "./recipes.types";
+import type { Recipe } from "../types/recipe.types";
 
 export const recipesBoard: Recipe[] = [
   { id: "r1", title: "Veggie tacos", mealType: "Dinner", tags: ["Vegetarian"] },

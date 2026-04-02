@@ -1,6 +1,6 @@
-import { PantryGrid } from "../features/pantry/PantryGrid";
-import { RecipeCard } from "../features/recipes/RecipeCard";
-import { favoriteRecipes } from "../features/recipes/mockRecipes";
+import { PantryGrid } from "../features/pantry/components/PantryGrid";
+import { RecipeCard } from "../features/recipes/components/RecipeCard";
+import { favoriteRecipes } from "../features/recipes/data/mockRecipes";
 
 export function HomePage() {
   return (
@@ -24,8 +24,9 @@ export function HomePage() {
             <RecipeCard
               key={r.id}
               title={r.title}
-              subtitle={r.subtitle}
-              tags={[...r.tags]}
+              subtitle={r.mealType}
+              tags={r.tags}
+              imageUrl={r.imageUrl}
             />
           ))}
         </div>

@@ -2,6 +2,15 @@ import type { MealMatchRecipe } from "../types/recipe";
 
 const BASE = "https://www.themealdb.com/api/json/v1/1";
 
+type MealDbMeal = {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb?: string;
+  strSource?: string;
+  strYoutube?: string;
+  [key: string]: string | undefined;
+};
+
 export async function mealdbSearch(query: string): Promise<MealMatchRecipe[]> {
   const firstIngredient = query.split(" ")[0];
   const url = `${BASE}/search.php?s=${encodeURIComponent(firstIngredient)}`;
@@ -13,22 +22,21 @@ export async function mealdbSearch(query: string): Promise<MealMatchRecipe[]> {
   }
 
   const data = (await res.json()) as {
-    meals: null | Array<{
-      idMeal: string;
-      strMeal: string;
-      strMealThumb?: string;
-      strSource?: string;
-      strYoutube?: string;
-      [key: string]: any;
-    }>;
+    meals: null | MealDbMeal[];
   };
 
   const meals = data.meals ?? [];
+
   return meals.map((m) => {
-    const ingredients: string[] = [];
+    const ingredients: MealMatchRecipe["ingredients"] = [];
+
     for (let i = 1; i <= 20; i++) {
-      const ing = (m as any)[`strIngredient${i}`];
-      if (ing) ingredients.push(ing);
+      const ing = m[`strIngredient${i}`];
+      if (ing?.trim()) {
+        ingredients.push({
+          name: ing.trim().toLowerCase(),
+        });
+      }
     }
 
     return {

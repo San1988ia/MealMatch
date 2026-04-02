@@ -1,12 +1,20 @@
+import type { PantryItem } from "../features/pantry/types/pantry.types";
+import type { Suggestion } from "../features/recipes/types/suggestion.types";
 const API_BASE = "http://localhost:4000";
 
-export async function suggestRecipes(ingredients: string[]) {
+type SuggestRecipesResponse = {
+  recipes: Suggestion[];
+};
+
+export async function suggestRecipes(
+  pantry: PantryItem[],
+): Promise<SuggestRecipesResponse> {
   const res = await fetch(`${API_BASE}/api/recipes/suggest`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ ingredients }),
+    body: JSON.stringify({ pantry }),
   });
 
   if (!res.ok) {

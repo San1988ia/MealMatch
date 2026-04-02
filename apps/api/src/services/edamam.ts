@@ -6,7 +6,6 @@ export async function edamamSearch(query: string): Promise<MealMatchRecipe[]> {
   const appId = process.env.EDAMAM_APP_ID;
   const appKey = process.env.EDAMAM_APP_KEY;
 
-  // If keys are missing, return empty so we can fall back to MealDB.
   if (!appId || !appKey) return [];
 
   const url =
@@ -29,7 +28,7 @@ export async function edamamSearch(query: string): Promise<MealMatchRecipe[]> {
         label: string;
         image?: string;
         url?: string;
-        ingredientLines?: Array<{ food: string }>;
+        ingredientLines?: string[];
       };
     }>;
   };
@@ -37,11 +36,13 @@ export async function edamamSearch(query: string): Promise<MealMatchRecipe[]> {
   const hits = data.hits ?? [];
 
   return hits.map((h) => ({
-    id: h.recipe.uri, // unique-ish id from Edamam
+    id: h.recipe.uri,
     title: h.recipe.label,
     image: h.recipe.image,
     url: h.recipe.url,
     source: "edamam",
-    ingredients: h.recipe.ingredientLines?.map((ing: any) => ing.food) ?? [],
+    ingredients: (h.recipe.ingredientLines ?? []).map((line) => ({
+      name: line.trim().toLowerCase(),
+    })),
   }));
 }

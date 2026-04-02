@@ -8,6 +8,6 @@ export type DietTag =
 export type Recipe = {
   id: string;
   title: string;
-  mealType?: "Breakfast" | "Lunch" | "Snack" | "Dinner" | "Dessert";
+  mealType: "Breakfast" | "Lunch" | "Snack" | "Dinner" | "Dessert";
   tags: DietTag[];
 };

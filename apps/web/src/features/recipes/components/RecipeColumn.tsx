@@ -1,5 +1,5 @@
+import type { Recipe } from "../types/recipe.types";
 import { RecipeCard } from "./RecipeCard";
-import type { Recipe } from "./recipes.types";
 
 type RecipeColumnProps = {
   title: string;

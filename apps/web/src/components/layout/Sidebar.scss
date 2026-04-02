@@ -1,4 +1,4 @@
-@use "../../../styles/_variables" as *;
+@use "../../styles/variables" as *;
 
 .sidebar__nav {
   position: fixed;
@@ -47,6 +47,14 @@
   padding: 2rem 1.5rem;
 }
 
+.sidebar__brand {
+  margin-bottom: 2rem;
+}
+
+.sidebar__hint {
+  font-size: 0.75rem;
+}
+
 .sidebar__logo {
   font-size: 1.75rem;
   display: flex;
@@ -85,7 +93,7 @@
   margin-bottom: 0.5rem;
 
   &:hover {
-    background-color: #e0e0e0; 
+    background-color: #e0e0e0;
     color: #333;
   }
 
@@ -99,14 +107,4 @@
   height: 1px;
   background-color: #ddd;
   margin: 1rem 0;
-}
-
-.muted {
-  color: #999;
-}
-
-.bagel-fat-one-regular {
-  font-family: "Bagel Fat One", system-ui;
-  font-weight: 400;
-  font-style: normal;
 }

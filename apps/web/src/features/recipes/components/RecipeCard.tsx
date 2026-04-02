@@ -1,7 +1,7 @@
 type RecipeCardProps = {
   title: string;
   subtitle?: string;
-  tags?: string[];
+  tags?: readonly string[];
   imageUrl?: string;
   href?: string;
   source?: string;

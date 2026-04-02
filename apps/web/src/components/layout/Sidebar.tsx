@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./styles/Sidebar.scss";
+import "./Sidebar.scss";
 
 type Page = "home" | "recipes";
 
@@ -33,13 +33,18 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
 
       <aside className={`sidebar ${isOpen ? "is-open" : ""}`}>
         <div className="sidebar-off-screen">
-              <h1 className="header__title bagel-fat-one-regular">
-              <div className="sidebar__logo">
-                <img src="/images/HamburgerHeart.PNG" alt="MealMatch logo" className="sidebar__logo-image" />
-                <span className="meal">Meal</span>
-                <span className="match">Match</span>
-              </div>
-               </h1>
+          <div className="sidebar__brand bagel-fat-one-regular">
+            <div className="sidebar__logo">
+              <img
+                src="/images/HamburgerHeart.PNG"
+                alt="MealMatch logo"
+                className="sidebar__logo-image"
+              />
+              <span className="meal">Meal</span>
+              <span className="match">Match</span>
+            </div>
+          </div>
+
           <button
             className={`sidebar__link ${currentPage === "home" ? "is-active" : ""}`}
             onClick={() => handleNavigate("home")}
@@ -58,9 +63,7 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
 
           <div className="sidebar__divider" />
 
-          <div className="muted" style={{ fontSize: 12 }}>
-            (kategorier kommer senare)
-          </div>
+          <div className="sidebar__hint muted">(kategorier kommer senare)</div>
         </div>
       </aside>
     </>

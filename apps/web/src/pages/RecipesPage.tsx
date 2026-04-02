@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { recipesBoard } from "../features/recipes/mockRecipesBoard";
-import { RecipeColumn } from "../features/recipes/RecipeColumn";
-import type { DietTag } from "../features/recipes/recipes.types";
+import { RecipeColumn } from "../features/recipes/components/RecipeColumn";
+import { recipesBoard } from "../features/recipes/data/mockRecipesBoard";
+import type { DietTag } from "../features/recipes/types/recipe.types";
 
 const columns: DietTag[] = [
   "Vegetarian",
