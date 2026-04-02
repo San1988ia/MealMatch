@@ -19,7 +19,7 @@ export function HomePage() {
           <span className="muted">♡</span>
         </div>
 
-        <div className="horizontal-scroll">
+        <div className="horizontal-scroll horizontal-scroll--favorites">
           {favoriteRecipes.map((r) => (
             <RecipeCard
               key={r.id}
