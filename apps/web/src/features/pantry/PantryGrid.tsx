@@ -1,5 +1,8 @@
 import { AgGridReact } from "ag-grid-react";
 import { useMemo, useState, useCallback } from "react";
+import { suggestRecipes } from "../../lib/api";
+import { SuggestionsGrid } from "../recipes/components/SuggestionsGrid";
+import type { Suggestion } from "../recipes/types/suggestion.types";
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
@@ -12,7 +15,6 @@ import { PantryModal } from "./PantryModal";
 import "./PantryGrid.scss";
 
 export function PantryGrid() {
-  // 1) Pantry rows
   const [rowData, setRowData] = useState<PantryItem[]>([
     { id: "1", name: "ägg", quantity: 6, unit: "st" },
     { id: "2", name: "mjöl", quantity: 1, unit: "kg" },
@@ -21,6 +23,9 @@ export function PantryGrid() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<PantryItem | undefined>();
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleEdit = useCallback((item: PantryItem) => {
     setEditingItem(item);
@@ -85,6 +90,40 @@ export function PantryGrid() {
     setIsModalOpen(true);
   };
 
+  const handleSuggest = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const pantry = rowData
+        .map((item) => ({
+          name: item.name.trim().toLowerCase(),
+          quantity: Number(item.quantity),
+          unit: item.unit.trim().toLowerCase(),
+        }))
+        .filter(
+          (item) =>
+            item.name.length > 0 && item.unit.length > 0 && item.quantity > 0,
+        );
+
+      if (pantry.length === 0) {
+        setError(
+          "Please add at least one valid ingredient with quantity and unit.",
+        );
+        setSuggestions([]);
+        return;
+      }
+
+      const data = await suggestRecipes(pantry);
+      setSuggestions(data.recipes);
+    } catch (caughtError) {
+      setError("Could not fetch recipe suggestions.");
+      console.error(caughtError);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="pantry-card">
       <h2>Your pantry</h2>
@@ -110,12 +149,16 @@ export function PantryGrid() {
       </div>
 
       <div className="pantry__footer">
-      <button
-        className="pantry__add-btn"
-        onClick={handleAdd}
-      >
-        Add Ingredient
-      </button>
+        <button className="pantry__add-btn" onClick={handleAdd}>
+          Add Ingredient
+        </button>
+        <button
+          className="pantry__suggest-btn"
+          onClick={handleSuggest}
+          disabled={isLoading}
+        >
+          {isLoading ? "Suggesting..." : "Suggest recipes"}
+        </button>
       </div>
 
       <PantryModal
@@ -124,6 +167,17 @@ export function PantryGrid() {
         onSave={handleSave}
         item={editingItem}
       />
+
+      <div className="pantry__suggestions">
+        <h3>Suggestions</h3>
+        {error ? <p className="muted">{error}</p> : null}
+        {!error && suggestions.length === 0 ? (
+          <p className="muted">No suggestions yet. Click "Suggest recipes".</p>
+        ) : null}
+        {suggestions.length > 0 ? (
+          <SuggestionsGrid suggestions={suggestions} />
+        ) : null}
+      </div>
     </div>
   );
 }

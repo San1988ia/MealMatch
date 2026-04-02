@@ -1,4 +1,4 @@
-import { PantryGrid } from "../features/pantry/components/PantryGrid";
+import { PantryGrid } from "../features/pantry/PantryGrid";
 import { RecipeCard } from "../features/recipes/components/RecipeCard";
 import { favoriteRecipes } from "../features/recipes/data/mockRecipes";
 
