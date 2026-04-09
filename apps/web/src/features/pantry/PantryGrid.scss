@@ -145,3 +145,33 @@
     color: white;
   }
 }
+
+@media (max-width: 640px) {
+  .pantry__grid-wrapper {
+    height: 52vh;
+    min-height: 18rem;
+
+    .ag-header-cell-text {
+      font-size: 0.88rem;
+    }
+
+    .ag-cell {
+      font-size: 0.92rem;
+    }
+  }
+
+  .pantry__footer {
+    gap: 0.5rem;
+  }
+
+  .pantry__add-btn,
+  .pantry__suggest-btn {
+    width: 100%;
+  }
+
+  .pantry__cell-btn {
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0.4rem;
+  }
+}

@@ -1,5 +1,5 @@
 import { AgGridReact } from "ag-grid-react";
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import { suggestRecipes } from "../../lib/api";
 import { SuggestionsGrid } from "../recipes/components/SuggestionsGrid";
 import type { Suggestion } from "../recipes/types/suggestion.types";
@@ -26,6 +26,16 @@ export function PantryGrid() {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isCompact, setIsCompact] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth <= 640 : false,
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onResize = () => setIsCompact(window.innerWidth <= 640);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   const handleEdit = useCallback((item: PantryItem) => {
     setEditingItem(item);
@@ -39,11 +49,21 @@ export function PantryGrid() {
   const columnDefs = useMemo(
     () => [
       { field: "name", headerName: "Ingredient", editable: true, flex: 1 },
-      { field: "quantity", headerName: "Quantity", editable: true, width: 120 },
-      { field: "unit", headerName: "Unit", editable: true, width: 120 },
+      {
+        field: "quantity",
+        headerName: "Quantity",
+        editable: true,
+        width: isCompact ? 95 : 120,
+      },
+      {
+        field: "unit",
+        headerName: "Unit",
+        editable: true,
+        width: isCompact ? 95 : 120,
+      },
       {
         headerName: "Actions",
-        width: 120,
+        width: isCompact ? 100 : 120,
         cellRenderer: (params: any) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
           <div className="pantry__cell-actions">
             <button
@@ -69,7 +89,7 @@ export function PantryGrid() {
         ),
       },
     ],
-    [handleEdit, handleDelete],
+    [handleEdit, handleDelete, isCompact],
   );
 
   const handleSave = (item: PantryItem) => {
@@ -138,7 +158,7 @@ export function PantryGrid() {
             rowData={rowData}
             columnDefs={columnDefs as any} // eslint-disable-line @typescript-eslint/no-explicit-any
             animateRows
-            rowHeight={48}
+            rowHeight={isCompact ? 44 : 48}
             onCellValueChanged={(e) => {
               const updated: PantryItem[] = [];
               e.api.forEachNode((node) => node.data && updated.push(node.data));
