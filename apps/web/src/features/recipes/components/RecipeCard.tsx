@@ -5,6 +5,10 @@ type RecipeCardProps = {
   imageUrl?: string;
   href?: string;
   source?: string;
+  showFavoriteButton?: boolean;
+  isFavorited?: boolean;
+  onToggleFavorite?: () => void;
+  favoriteAriaLabel?: string;
 };
 
 export function RecipeCard({
@@ -14,7 +18,28 @@ export function RecipeCard({
   imageUrl,
   href,
   source,
+  showFavoriteButton = false,
+  isFavorited = false,
+  onToggleFavorite,
+  favoriteAriaLabel = "Toggle favorite",
 }: RecipeCardProps) {
+  const handleFavoriteClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    onToggleFavorite?.();
+  };
+
+  const handleFavoriteKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    onToggleFavorite?.();
+  };
+
   const content = (
     <article className="recipe-card">
       <div
@@ -26,9 +51,26 @@ export function RecipeCard({
       <div className="recipe-card__body">
         <div className="recipe-card__top">
           <h3 className="recipe-card__title">{title}</h3>
-          {source ? (
-            <span className="recipe-card__source">{source}</span>
-          ) : null}
+
+          <div className="recipe-card__actions">
+            {source ? (
+              <span className="recipe-card__source">{source}</span>
+            ) : null}
+
+            {showFavoriteButton ? (
+              <span
+                className={`recipe-card__favorite${isFavorited ? " recipe-card__favorite--active" : ""}`}
+                role="button"
+                tabIndex={0}
+                aria-label={favoriteAriaLabel}
+                aria-pressed={isFavorited}
+                onClick={handleFavoriteClick}
+                onKeyDown={handleFavoriteKeyDown}
+              >
+                {isFavorited ? "♥" : "♡"}
+              </span>
+            ) : null}
+          </div>
         </div>
 
         {subtitle ? <p className="recipe-card__subtitle">{subtitle}</p> : null}

@@ -1,8 +1,35 @@
 import { PantryGrid } from "../features/pantry/PantryGrid";
+import type { FavoriteRecipe } from "../features/favorites/context/FavoritesContext";
+import { useFavorites } from "../features/favorites/context/useFavorites";
 import { RecipeCard } from "../features/recipes/components/RecipeCard";
-import { favoriteRecipes } from "../features/recipes/data/mockRecipes";
+import { useRecipeFavorite } from "../features/recipes/hooks/useRecipeFavorite";
+
+function FavoriteRailCard({ recipe }: { recipe: FavoriteRecipe }) {
+  const { isFavorited, toggleFavorite, favoriteAriaLabel } = useRecipeFavorite({
+    id: recipe.id,
+    title: recipe.title,
+    image: recipe.image,
+    url: recipe.url,
+    source: recipe.source,
+  });
+
+  return (
+    <RecipeCard
+      title={recipe.title}
+      imageUrl={recipe.image}
+      href={recipe.url}
+      source={recipe.source}
+      showFavoriteButton
+      isFavorited={isFavorited}
+      onToggleFavorite={toggleFavorite}
+      favoriteAriaLabel={favoriteAriaLabel}
+    />
+  );
+}
 
 export function HomePage() {
+  const { favorites } = useFavorites();
+
   return (
     <div className="page">
       <section className="card">
@@ -20,15 +47,11 @@ export function HomePage() {
         </div>
 
         <div className="horizontal-scroll horizontal-scroll--favorites">
-          {favoriteRecipes.map((r) => (
-            <RecipeCard
-              key={r.id}
-              title={r.title}
-              subtitle={r.mealType}
-              tags={r.tags}
-              imageUrl={r.imageUrl}
-            />
-          ))}
+          {favorites.length > 0 ? (
+            favorites.map((r) => <FavoriteRailCard key={r.id} recipe={r} />)
+          ) : (
+            <p className="muted">No favorites yet. Tap a heart on Recipes.</p>
+          )}
         </div>
       </section>
 
