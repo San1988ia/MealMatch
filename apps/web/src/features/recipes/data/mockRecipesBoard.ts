@@ -1,20 +1,124 @@
 import type { Recipe } from "../types/recipe.types";
 
 export const recipesBoard: Recipe[] = [
-  { id: "r1", title: "Veggie tacos", mealType: "Dinner", tags: ["Vegetarian"] },
-  { id: "r2", title: "Halloumi bowl", mealType: "Lunch", tags: ["Vegetarian"] },
+  {
+    id: "r1",
+    title: "Veggie tacos",
+    mealType: "Dinner",
+    tags: ["Vegetarian"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=1200&q=80",
+    ingredients: [
+      "8 small corn tortillas",
+      "1 can black beans",
+      "1 red onion",
+      "2 avocados",
+      "1 cup corn",
+      "Fresh cilantro",
+    ],
+    instructions: [
+      "Warm tortillas in a dry pan for 20-30 seconds per side.",
+      "Saute onion and corn until soft, then fold in black beans.",
+      "Mash avocado with salt and lime juice.",
+      "Assemble tacos and top with cilantro.",
+    ],
+    nutrition: {
+      calories: 540,
+      carbsGrams: 62,
+      proteinGrams: 18,
+      fatGrams: 24,
+      fiberGrams: 14,
+      breakdown: { carbs: 46, protein: 14, fat: 40 },
+    },
+  },
+  {
+    id: "r2",
+    title: "Halloumi bowl",
+    mealType: "Lunch",
+    tags: ["Vegetarian"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=80",
+    ingredients: [
+      "200g halloumi",
+      "2 cups cooked quinoa",
+      "1 cucumber",
+      "Cherry tomatoes",
+      "Olive oil",
+      "Lemon",
+    ],
+    instructions: [
+      "Pan-sear halloumi slices until golden on both sides.",
+      "Build bowls with quinoa, cucumber and tomatoes.",
+      "Top with warm halloumi.",
+      "Drizzle olive oil and lemon juice before serving.",
+    ],
+    nutrition: {
+      calories: 610,
+      carbsGrams: 44,
+      proteinGrams: 29,
+      fatGrams: 34,
+      fiberGrams: 7,
+      breakdown: { carbs: 29, protein: 19, fat: 52 },
+    },
+  },
 
   {
     id: "r3",
     title: "Omelett",
     mealType: "Breakfast",
     tags: ["Gluten Free", "High Protein"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1510693206972-df098062cb71?auto=format&fit=crop&w=1200&q=80",
+    ingredients: [
+      "3 eggs",
+      "50g spinach",
+      "40g feta cheese",
+      "1 tsp butter",
+      "Salt and pepper",
+    ],
+    instructions: [
+      "Whisk eggs with salt and pepper.",
+      "Melt butter and saute spinach briefly.",
+      "Add eggs and cook on low heat.",
+      "Sprinkle feta, fold omelet, and serve.",
+    ],
+    nutrition: {
+      calories: 410,
+      carbsGrams: 6,
+      proteinGrams: 29,
+      fatGrams: 30,
+      fiberGrams: 2,
+      breakdown: { carbs: 6, protein: 28, fat: 66 },
+    },
   },
   {
     id: "r4",
     title: "Kycklingsallad",
     mealType: "Lunch",
     tags: ["Gluten Free", "Low Carb"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80",
+    ingredients: [
+      "200g grilled chicken",
+      "Mixed greens",
+      "1 avocado",
+      "Cucumber",
+      "Olive oil vinaigrette",
+    ],
+    instructions: [
+      "Slice grilled chicken and avocado.",
+      "Toss greens and cucumber with vinaigrette.",
+      "Top salad with chicken and avocado.",
+      "Season and serve immediately.",
+    ],
+    nutrition: {
+      calories: 520,
+      carbsGrams: 12,
+      proteinGrams: 43,
+      fatGrams: 33,
+      fiberGrams: 8,
+      breakdown: { carbs: 9, protein: 33, fat: 58 },
+    },
   },
 
   {
@@ -22,12 +126,58 @@ export const recipesBoard: Recipe[] = [
     title: "Overnight oats",
     mealType: "Breakfast",
     tags: ["High Fiber"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1517673400267-0251440c45dc?auto=format&fit=crop&w=1200&q=80",
+    ingredients: [
+      "1 cup oats",
+      "1 cup milk",
+      "2 tbsp chia seeds",
+      "1 banana",
+      "Cinnamon",
+    ],
+    instructions: [
+      "Mix oats, milk and chia seeds in a jar.",
+      "Stir in cinnamon and half the banana.",
+      "Refrigerate overnight.",
+      "Top with remaining banana before eating.",
+    ],
+    nutrition: {
+      calories: 430,
+      carbsGrams: 64,
+      proteinGrams: 14,
+      fatGrams: 14,
+      fiberGrams: 12,
+      breakdown: { carbs: 59, protein: 13, fat: 28 },
+    },
   },
   {
     id: "r6",
     title: "Linsgryta",
     mealType: "Dinner",
     tags: ["High Fiber", "Vegetarian"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80",
+    ingredients: [
+      "2 cups cooked lentils",
+      "1 onion",
+      "2 cloves garlic",
+      "1 can crushed tomatoes",
+      "Vegetable broth",
+    ],
+    instructions: [
+      "Saute onion and garlic until fragrant.",
+      "Add lentils, tomatoes, and broth.",
+      "Simmer for 20 minutes until thick.",
+      "Adjust seasoning and serve warm.",
+    ],
+    nutrition: {
+      calories: 470,
+      carbsGrams: 62,
+      proteinGrams: 24,
+      fatGrams: 11,
+      fiberGrams: 16,
+      breakdown: { carbs: 57, protein: 22, fat: 21 },
+    },
   },
 
   {
@@ -35,12 +185,57 @@ export const recipesBoard: Recipe[] = [
     title: "Kvarg med bär",
     mealType: "Snack",
     tags: ["High Protein"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1200&q=80",
+    ingredients: [
+      "250g kvarg",
+      "1 cup mixed berries",
+      "1 tbsp honey",
+      "2 tbsp granola",
+    ],
+    instructions: [
+      "Spoon kvarg into a bowl.",
+      "Top with berries and granola.",
+      "Drizzle honey over the top.",
+      "Serve immediately.",
+    ],
+    nutrition: {
+      calories: 320,
+      carbsGrams: 36,
+      proteinGrams: 28,
+      fatGrams: 6,
+      fiberGrams: 5,
+      breakdown: { carbs: 45, protein: 36, fat: 19 },
+    },
   },
   {
     id: "r8",
     title: "Tonfisksallad",
     mealType: "Lunch",
     tags: ["High Protein", "Low Carb"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1200&q=80",
+    ingredients: [
+      "1 can tuna",
+      "2 boiled eggs",
+      "Mixed greens",
+      "Cherry tomatoes",
+      "Greek yogurt dressing",
+    ],
+    instructions: [
+      "Drain tuna and flake into a bowl.",
+      "Slice eggs and prep vegetables.",
+      "Mix all ingredients with dressing.",
+      "Season with salt, pepper, and lemon.",
+    ],
+    nutrition: {
+      calories: 390,
+      carbsGrams: 10,
+      proteinGrams: 42,
+      fatGrams: 20,
+      fiberGrams: 4,
+      breakdown: { carbs: 10, protein: 43, fat: 47 },
+    },
   },
 
   {
@@ -48,5 +243,28 @@ export const recipesBoard: Recipe[] = [
     title: "Zucchini pasta",
     mealType: "Dinner",
     tags: ["Low Carb", "Vegetarian"],
+    imageUrl:
+      "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=1200&q=80",
+    ingredients: [
+      "3 zucchinis",
+      "2 cloves garlic",
+      "Cherry tomatoes",
+      "Parmesan",
+      "Olive oil",
+    ],
+    instructions: [
+      "Spiralize zucchini into noodles.",
+      "Saute garlic in olive oil.",
+      "Add tomatoes and cook until softened.",
+      "Toss in zucchini noodles briefly and top with parmesan.",
+    ],
+    nutrition: {
+      calories: 360,
+      carbsGrams: 19,
+      proteinGrams: 14,
+      fatGrams: 25,
+      fiberGrams: 6,
+      breakdown: { carbs: 21, protein: 15, fat: 64 },
+    },
   },
 ];
