@@ -1,52 +1,76 @@
-type RecipeCardProps = {
+type RecipeCardBaseProps = {
   title: string;
   subtitle?: string;
   tags?: readonly string[];
   imageUrl?: string;
-  href?: string;
   source?: string;
-  showFavoriteButton?: boolean;
+};
+
+type WithFavorite = {
+  showFavoriteButton: true;
+  onToggleFavorite: () => void;
   isFavorited?: boolean;
-  onToggleFavorite?: () => void;
   favoriteAriaLabel?: string;
 };
 
-export function RecipeCard({
-  title,
-  subtitle,
-  tags = [],
-  imageUrl,
-  href,
-  source,
-  showFavoriteButton = false,
-  isFavorited = false,
-  onToggleFavorite,
-  favoriteAriaLabel = "Toggle favorite",
-}: RecipeCardProps) {
-  const handleFavoriteClick = (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
+type WithoutFavorite = {
+  showFavoriteButton?: false;
+  onToggleFavorite?: never;
+  isFavorited?: never;
+  favoriteAriaLabel?: never;
+};
+
+type RecipeCardLinkAction = {
+  href: string;
+  onClick?: never;
+  openInNewTab?: boolean;
+  rel?: string;
+};
+
+type RecipeCardButtonAction = {
+  onClick: () => void;
+  href?: never;
+  openInNewTab?: never;
+  rel?: never;
+};
+
+type RecipeCardProps = RecipeCardBaseProps &
+  (WithFavorite | WithoutFavorite) &
+  (RecipeCardLinkAction | RecipeCardButtonAction);
+
+export function RecipeCard(props: RecipeCardProps) {
+  const {
+    title,
+    subtitle,
+    tags = [],
+    imageUrl,
+    source,
+  } = props;
+
+  const showFavoriteButton = props.showFavoriteButton ?? false;
+  const isFavorited = showFavoriteButton ? (props.isFavorited ?? false) : false;
+  const favoriteAriaLabel = showFavoriteButton
+    ? (props.favoriteAriaLabel ?? "Toggle favorite")
+    : "Toggle favorite";
+
+  const cardAriaLabel = `Open recipe ${title}`;
+
+  const handleFavoriteClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-
-    onToggleFavorite?.();
-  };
-
-  const handleFavoriteKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-    if (event.key !== "Enter" && event.key !== " ") {
+    if (!props.showFavoriteButton) {
       return;
     }
 
-    event.preventDefault();
-    event.stopPropagation();
-    onToggleFavorite?.();
+    props.onToggleFavorite();
   };
 
   const content = (
-    <article className="recipe-card">
-      <div
-        className="recipe-card__image"
-        style={imageUrl ? { backgroundImage: `url(${imageUrl})` } : undefined}
-        aria-hidden="true"
-      />
+    <>
+      {imageUrl ? (
+        <img src={imageUrl} alt={title} className="recipe-card__image" loading="lazy" />
+      ) : (
+        <div className="recipe-card__image" aria-hidden="true" />
+      )}
 
       <div className="recipe-card__body">
         <div className="recipe-card__top">
@@ -58,17 +82,24 @@ export function RecipeCard({
             ) : null}
 
             {showFavoriteButton ? (
-              <span
+              <button
+                type="button"
                 className={`recipe-card__favorite${isFavorited ? " recipe-card__favorite--active" : ""}`}
-                role="button"
-                tabIndex={0}
                 aria-label={favoriteAriaLabel}
                 aria-pressed={isFavorited}
                 onClick={handleFavoriteClick}
-                onKeyDown={handleFavoriteKeyDown}
               >
-                {isFavorited ? "♥" : "♡"}
-              </span>
+                {isFavorited ? (
+                  <img
+                    src="/images/HamburgerHeart.PNG"
+                    alt=""
+                    aria-hidden="true"
+                    className="recipe-card__favorite-icon"
+                  />
+                ) : (
+                  "♡"
+                )}
+              </button>
             ) : null}
           </div>
         </div>
@@ -85,19 +116,37 @@ export function RecipeCard({
           </div>
         ) : null}
       </div>
-    </article>
+    </>
   );
 
-  return href ? (
-    <a
-      className="recipe-card__link"
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-    >
+  if ("href" in props) {
+    const linkRel = props.openInNewTab
+      ? (props.rel ?? "noopener noreferrer")
+      : props.rel;
+
+    return (
+      <article className="recipe-card recipe-card--interactive">
+        <a
+          className="recipe-card__stretched-link"
+          href={props.href}
+          target={props.openInNewTab ? "_blank" : undefined}
+          rel={linkRel}
+          aria-label={cardAriaLabel}
+        />
+        {content}
+      </article>
+    );
+  }
+
+  return (
+    <article className="recipe-card recipe-card--interactive">
+      <button
+        className="recipe-card__stretched-button"
+        type="button"
+        onClick={props.onClick}
+        aria-label={cardAriaLabel}
+      />
       {content}
-    </a>
-  ) : (
-    content
+    </article>
   );
 }
