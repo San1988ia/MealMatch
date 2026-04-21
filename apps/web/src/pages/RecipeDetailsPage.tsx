@@ -1,5 +1,6 @@
 import type { Recipe } from "../features/recipes/types/recipe.types";
 import { useRecipeFavorite } from "../features/recipes/hooks/useRecipeFavorite";
+import "./RecipeDetailsPage.scss";
 
 type RecipeDetailsPageProps = {
   recipe: Recipe;
