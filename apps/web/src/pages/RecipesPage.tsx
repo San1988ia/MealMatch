@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { RecipeColumn } from "../features/recipes/components/RecipeColumn";
 import { recipesBoard } from "../features/recipes/data/mockRecipesBoard";
-import type { DietTag } from "../features/recipes/types/recipe.types";
+import type { DietTag, Recipe } from "../features/recipes/types/recipe.types";
 
 const columns: DietTag[] = [
   "Vegetarian",
@@ -11,7 +11,11 @@ const columns: DietTag[] = [
   "Low Carb",
 ];
 
-export function RecipesPage() {
+type RecipesPageProps = {
+  onOpenRecipe: (recipe: Recipe) => void;
+};
+
+export function RecipesPage({ onOpenRecipe }: RecipesPageProps) {
   const byTag = useMemo(() => {
     const map = new Map<DietTag, typeof recipesBoard>();
     for (const tag of columns) map.set(tag, []);
@@ -32,7 +36,12 @@ export function RecipesPage() {
 
       <section className="recipes-board">
         {columns.map((tag) => (
-          <RecipeColumn key={tag} title={tag} recipes={byTag.get(tag) ?? []} />
+          <RecipeColumn
+            key={tag}
+            title={tag}
+            recipes={byTag.get(tag) ?? []}
+            onOpenRecipe={onOpenRecipe}
+          />
         ))}
       </section>
     </div>
