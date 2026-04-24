@@ -4,18 +4,25 @@ import { recipesBoard } from "../features/recipes/data/mockRecipesBoard";
 import { HomePage } from "../pages/HomePage";
 import { RecipeDetailsPage } from "../pages/RecipeDetailsPage";
 import { RecipesPage } from "../pages/RecipesPage";
-import type { Recipe } from "../features/recipes/types/recipe.types";
+import type { DietTag, Recipe } from "../features/recipes/types/recipe.types";
 import { AppLayout } from "./AppLayout";
 
 type Page = "home" | "recipes" | "recipe-details";
+type MealType = Recipe["mealType"];
+type NavPage = "home" | "recipes";
 
 export default function App() {
   const [page, setPage] = useState<Page>("home");
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
-  const [recipeBackPage, setRecipeBackPage] = useState<"home" | "recipes">("home");
+  const [recipeBackPage, setRecipeBackPage] = useState<NavPage>("home");
+  const [recipeSearchQuery, setRecipeSearchQuery] = useState("");
+  const [selectedMealTypes, setSelectedMealTypes] = useState<MealType[]>([]);
+  const [selectedDietTags, setSelectedDietTags] = useState<DietTag[]>([]);
+
+  const currentNavPage: NavPage = page === "recipe-details" ? recipeBackPage : page;
 
   const openRecipe = (recipe: Recipe) => {
-    setRecipeBackPage(page === "home" ? "home" : "recipes");
+    setRecipeBackPage(currentNavPage);
     setSelectedRecipe(recipe);
     setPage("recipe-details");
   };
@@ -37,17 +44,38 @@ export default function App() {
     });
   };
 
-  const navigate = (nextPage: "home" | "recipes") => {
+  const navigate = (nextPage: NavPage) => {
     setPage(nextPage);
     setSelectedRecipe(null);
   };
 
+  const handleHeaderSearchSubmit = () => {
+    setPage("recipes");
+    setSelectedRecipe(null);
+  };
+
   return (
-    <AppLayout currentPage={page === "home" ? "home" : "recipes"} onNavigate={navigate}>
+    <AppLayout
+      currentPage={currentNavPage}
+      onNavigate={navigate}
+      recipeSearchQuery={recipeSearchQuery}
+      onRecipeSearchQueryChange={setRecipeSearchQuery}
+      onRecipeSearchSubmit={handleHeaderSearchSubmit}
+    >
       {page === "home" ? <HomePage onOpenFavoriteRecipe={openFavoriteRecipe} /> : null}
-      {page === "recipes" ? <RecipesPage onOpenRecipe={openRecipe} /> : null}
+      {page === "recipes" ? (
+        <RecipesPage
+          onOpenRecipe={openRecipe}
+          searchQuery={recipeSearchQuery}
+          onSearchQueryChange={setRecipeSearchQuery}
+          selectedMealTypes={selectedMealTypes}
+          onSelectedMealTypesChange={setSelectedMealTypes}
+          selectedDietTags={selectedDietTags}
+          onSelectedDietTagsChange={setSelectedDietTags}
+        />
+      ) : null}
       {page === "recipe-details" && selectedRecipe ? (
-        <RecipeDetailsPage recipe={selectedRecipe} onBack={() => setPage(recipeBackPage)} />
+        <RecipeDetailsPage recipe={selectedRecipe} onBack={() => navigate(recipeBackPage)} />
       ) : null}
     </AppLayout>
   );
