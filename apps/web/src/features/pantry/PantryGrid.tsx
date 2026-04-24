@@ -16,9 +16,9 @@ import "./PantryGrid.scss";
 
 export function PantryGrid() {
   const [rowData, setRowData] = useState<PantryItem[]>([
-    { id: "1", name: "ägg", quantity: 6, unit: "st" },
-    { id: "2", name: "mjöl", quantity: 1, unit: "kg" },
-    { id: "3", name: "mjölk", quantity: 1, unit: "l" },
+    { id: "1", name: "eggs", quantity: 6, unit: "pcs" },
+    { id: "2", name: "flour", quantity: 1, unit: "kg" },
+    { id: "3", name: "milk", quantity: 1, unit: "l" },
   ]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -148,7 +148,7 @@ export function PantryGrid() {
     <div className="pantry-card">
       <h2>Your pantry</h2>
 
-      {/* ✅ Ge både wrapper och grid en tydlig höjd */}
+      {/* Keep both the wrapper and grid at an explicit height. */}
       <div className="pantry__grid-wrapper">
         <div
           className="ag-theme-quartz"
@@ -223,9 +223,9 @@ export function PantryGrid() {
 // export function PantryGrid() {
 //   const [rowData, setRowData] = useState<PantryItem[]>([
 //     const [suggestions, setSuggestions] = useState<any[]>([]);
-//     { name: "ägg", quantity: 6, unit: "st" },
-//     { name: "mjöl", quantity: 1, unit: "kg" },
-//     { name: "mjölk", quantity: 1, unit: "l" },
+//     { name: "eggs", quantity: 6, unit: "pcs" },
+//     { name: "flour", quantity: 1, unit: "kg" },
+//     { name: "milk", quantity: 1, unit: "l" },
 //   ]);
 
 //   const columnDefs = useMemo(
@@ -241,7 +241,7 @@ export function PantryGrid() {
 //     <div className="card">
 //       <h2>Your pantry</h2>
 
-//       {/* ✅ Ge både wrapper och grid en tydlig höjd */}
+//       {/* Keep both the wrapper and grid at an explicit height. */}
 //       <div style={{ height: 320, marginTop: 12 }}>
 //         <div
 //           className="ag-theme-quartz"
@@ -262,9 +262,7 @@ export function PantryGrid() {
 
 //       <button
 //         style={{ marginTop: 12 }}
-//         onClick={() =>
-//           setRowData((prev) => [...prev, { name: "", quantity: 1, unit: "st" }])
-//         }
+//         onClick={() => setRowData((prev) => [...prev, { name: "", quantity: 1, unit: "pcs" }])}
 //       >
 //         Add Ingredient
 //       </button>

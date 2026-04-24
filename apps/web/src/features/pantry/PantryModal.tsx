@@ -10,18 +10,18 @@ interface PantryModalProps {
   item?: PantryItem;
 }
 
-const commonUnits = ['st', 'kg', 'l', 'g', 'ml', 'cup', 'tbsp', 'tsp'];
+const commonUnits = ['pcs', 'kg', 'l', 'g', 'ml', 'cup', 'tbsp', 'tsp'];
 
 export function PantryModal({ isOpen, onClose, onSave, item }: PantryModalProps) {
   const [name, setName] = useState(item?.name || '');
   const [quantity, setQuantity] = useState(item?.quantity || 1);
-  const [unit, setUnit] = useState(item?.unit || 'st');
+  const [unit, setUnit] = useState(item?.unit || 'pcs');
 
   useEffect(() => {
     if (isOpen) {
       setName(item?.name || '');
       setQuantity(item?.quantity || 1);
-      setUnit(item?.unit || 'st');
+      setUnit(item?.unit || 'pcs');
     }
 
   }, [isOpen]); 

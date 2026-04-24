@@ -17,7 +17,7 @@ export const favoriteRecipes = [
   },
   {
     id: "3",
-    title: "Kycklingwrap",
+    title: "Chicken Wrap",
     mealType: "Dinner",
     tags: ["High Protein"],
     imageUrl:
@@ -25,7 +25,7 @@ export const favoriteRecipes = [
   },
   {
     id: "4",
-    title: "Bananpannkaka",
+    title: "Banana Pancake",
     mealType: "Snack",
     tags: ["Gluten Free"],
     imageUrl:
@@ -33,7 +33,7 @@ export const favoriteRecipes = [
   },
   {
     id: "5",
-    title: "Chokladboll",
+    title: "Chocolate Ball",
     mealType: "Dessert",
     tags: ["High Fiber"],
     imageUrl:

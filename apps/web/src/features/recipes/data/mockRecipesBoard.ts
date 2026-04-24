@@ -93,7 +93,7 @@ export const recipesBoard: Recipe[] = [
   },
   {
     id: "r4",
-    title: "Kycklingsallad",
+    title: "Chicken Salad",
     mealType: "Lunch",
     tags: ["Gluten Free", "Low Carb"],
     imageUrl:
@@ -152,7 +152,7 @@ export const recipesBoard: Recipe[] = [
   },
   {
     id: "r6",
-    title: "Linsgryta",
+    title: "Lentil Stew",
     mealType: "Dinner",
     tags: ["High Fiber", "Vegetarian"],
     imageUrl:
@@ -182,19 +182,19 @@ export const recipesBoard: Recipe[] = [
 
   {
     id: "r7",
-    title: "Kvarg med bär",
+    title: "Quark with Berries",
     mealType: "Snack",
     tags: ["High Protein"],
     imageUrl:
       "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1200&q=80",
     ingredients: [
-      "250g kvarg",
+      "250g quark",
       "1 cup mixed berries",
       "1 tbsp honey",
       "2 tbsp granola",
     ],
     instructions: [
-      "Spoon kvarg into a bowl.",
+      "Spoon quark into a bowl.",
       "Top with berries and granola.",
       "Drizzle honey over the top.",
       "Serve immediately.",
@@ -210,7 +210,7 @@ export const recipesBoard: Recipe[] = [
   },
   {
     id: "r8",
-    title: "Tonfisksallad",
+    title: "Tuna Salad",
     mealType: "Lunch",
     tags: ["High Protein", "Low Carb"],
     imageUrl:
