@@ -12,8 +12,10 @@ type Page = "home" | "recipes" | "recipe-details";
 export default function App() {
   const [page, setPage] = useState<Page>("home");
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const [recipeBackPage, setRecipeBackPage] = useState<"home" | "recipes">("home");
 
   const openRecipe = (recipe: Recipe) => {
+    setRecipeBackPage(page === "home" ? "home" : "recipes");
     setSelectedRecipe(recipe);
     setPage("recipe-details");
   };
@@ -45,7 +47,7 @@ export default function App() {
       {page === "home" ? <HomePage onOpenFavoriteRecipe={openFavoriteRecipe} /> : null}
       {page === "recipes" ? <RecipesPage onOpenRecipe={openRecipe} /> : null}
       {page === "recipe-details" && selectedRecipe ? (
-        <RecipeDetailsPage recipe={selectedRecipe} onBack={() => setPage("recipes")} />
+        <RecipeDetailsPage recipe={selectedRecipe} onBack={() => setPage(recipeBackPage)} />
       ) : null}
     </AppLayout>
   );
