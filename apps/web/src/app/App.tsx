@@ -15,9 +15,9 @@ import { RecipeDetailsPage } from "../pages/RecipeDetailsPage";
 import { RecipesPage } from "../pages/RecipesPage";
 import type { DietTag, Recipe } from "../features/recipes/types/recipe.types";
 import { AppLayout } from "./AppLayout";
+import type { NavPage } from "./navigation.types";
 
 type MealType = Recipe["mealType"];
-type NavPage = "home" | "recipes";
 type RecipeRouteState = {
   recipe?: Recipe;
   backPage?: NavPage;

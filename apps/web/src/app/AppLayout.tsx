@@ -1,13 +1,12 @@
 import type { ReactNode } from "react";
 import { Header } from "../components/layout/Header";
 import { Sidebar } from "../components/layout/Sidebar";
-
-type Page = "home" | "recipes";
+import type { NavPage } from "./navigation.types";
 
 type AppLayoutProps = {
   children: ReactNode;
-  currentPage: Page;
-  onNavigate: (page: Page) => void;
+  currentPage: NavPage;
+  onNavigate: (page: NavPage) => void;
   recipeSearchQuery: string;
   onRecipeSearchQueryChange: (query: string) => void;
   onRecipeSearchSubmit: () => void;
