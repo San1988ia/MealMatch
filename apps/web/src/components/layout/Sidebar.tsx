@@ -1,17 +1,16 @@
 import { useState } from "react";
+import type { NavPage } from "../../app/navigation.types";
 import "./Sidebar.scss";
 
-type Page = "home" | "recipes";
-
 type SidebarProps = {
-  currentPage: Page;
-  onNavigate: (page: Page) => void;
+  currentPage: NavPage;
+  onNavigate: (page: NavPage) => void;
 };
 
 export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleNavigate = (page: Page) => {
+  const handleNavigate = (page: NavPage) => {
     onNavigate(page);
     setIsOpen(false);
   };
