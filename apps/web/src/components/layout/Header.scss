@@ -1,14 +1,23 @@
 @use "../../styles/variables" as *;
 .header {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0;
+  justify-content: flex-start;
+  gap: 1rem;
   padding: 0.5rem 0.9rem 0.5rem 3rem;
   margin: 0;
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   background: $color-primary;
   color: white;
+  flex-wrap: wrap;
+}
+
+.header__brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
 }
 
 .header__title {
@@ -35,8 +44,77 @@
   margin-left: 1rem;
 }
 
+.header__search {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: min(34rem, calc(100% - 20rem));
+}
+
+.header__search-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.header__search-input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  padding: 0.7rem 0.95rem;
+  background: rgba(255, 255, 255, 0.16);
+  color: white;
+}
+
+.header__search-input::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.header__search-input:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+.header__search-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  background: $color-accent-yellow;
+  color: #1f2937;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 @media (min-width: 1024px) {
   .header {
     padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 980px) {
+  .header {
+    justify-content: space-between;
+  }
+
+  .header__search {
+    position: static;
+    transform: none;
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .header__logo {
+    margin-left: 0;
   }
 }
