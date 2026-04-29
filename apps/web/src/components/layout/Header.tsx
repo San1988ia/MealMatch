@@ -36,7 +36,7 @@ export function Header({
 
       {currentPage !== "recipes" ? (
         <form className="header__search" onSubmit={handleSubmit} role="search">
-          <label className="header__search-label" htmlFor="header-recipe-search">
+          <label className="visually-hidden" htmlFor="header-recipe-search">
             Search recipes
           </label>
           <input
