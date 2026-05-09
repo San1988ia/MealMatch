@@ -1,6 +1,15 @@
 @use "../../styles/variables" as *;
 @use "sass:color";
 
+.pantry-card {
+  background: $color-card;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: $radius-lg;
+  padding: 1rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
 .pantry__grid-wrapper {
   height: 45vh;
   margin-top: 1rem;

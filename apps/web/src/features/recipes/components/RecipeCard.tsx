@@ -1,3 +1,5 @@
+import "./RecipeCard.scss";
+
 type RecipeCardBaseProps = {
   title: string;
   subtitle?: string;

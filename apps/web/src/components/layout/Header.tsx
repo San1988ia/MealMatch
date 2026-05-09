@@ -1,5 +1,5 @@
 import type { FormEvent } from "react";
-import type { NavPage } from "../../app/navigation.types";
+import type { NavPage } from "../../app/navigation.types.ts";
 import "./Header.scss";
 
 type HeaderProps = {
