@@ -1,4 +1,5 @@
 import { PantryGrid } from "../features/pantry/PantryGrid";
+import { useTranslation } from "react-i18next";
 import type { FavoriteRecipe } from "../features/favorites/context/FavoritesContext";
 import { useFavorites } from "../features/favorites/context/useFavorites";
 import { RecipeCard } from "../features/recipes/components/RecipeCard";
@@ -39,20 +40,20 @@ type HomePageProps = {
 
 export function HomePage({ onOpenFavoriteRecipe }: HomePageProps) {
   const { favorites } = useFavorites();
+  const { t } = useTranslation();
 
   return (
     <div className="page">
       <section className="card">
-        <h2>About MealMatch</h2>
+        <h2>{t("home.aboutTitle")}</h2>
         <p>
-          MealMatch helps you find recipes based on what you already have at
-          home.
+          {t("home.aboutText")}
         </p>
       </section>
 
       <section className="card">
         <div className="section-header">
-          <h2>Favorites</h2>
+          <h2>{t("home.favorites")}</h2>
           <span className="muted">♡</span>
         </div>
 
@@ -66,7 +67,7 @@ export function HomePage({ onOpenFavoriteRecipe }: HomePageProps) {
               />
             ))
           ) : (
-            <p className="muted">No favorites yet. Tap a heart on Recipes.</p>
+            <p className="muted">{t("home.noFavorites")}</p>
           )}
         </div>
       </section>

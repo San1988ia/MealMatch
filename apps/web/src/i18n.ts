@@ -1,0 +1,185 @@
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import { initReactI18next } from "react-i18next";
+
+const resources = {
+  en: {
+    translation: {
+      common: {
+        language: "Language",
+      },
+      header: {
+        searchRecipes: "Search recipes",
+        search: "Search",
+      },
+      sidebar: {
+        toggle: "Toggle sidebar",
+        home: "Home",
+        recipes: "Recipes",
+        categoriesSoon: "(categories coming later)",
+      },
+      home: {
+        aboutTitle: "About MealMatch",
+        aboutText: "MealMatch helps you find recipes based on what you already have at home.",
+        favorites: "Favorites",
+        noFavorites: "No favorites yet. Tap a heart on Recipes.",
+      },
+      recipes: {
+        title: "Recipes",
+        clearFilters: "Clear filters",
+        searchPlaceholder: "Try tuna, tacos, oats...",
+        mealType: "Meal type",
+        category: "Category",
+        results: "Results",
+        resultCount_one: "{{count}} recipe",
+        resultCount_other: "{{count}} recipes",
+        noResults: "No recipes match that search yet. Try fewer filters or a broader keyword.",
+      },
+      details: {
+        back: "Back",
+        ingredients: "Ingredients",
+        noIngredients: "Ingredients are not available yet.",
+        instructions: "Cooking instructions",
+        noInstructions: "Cooking instructions are not available yet.",
+        nutrition: "Nutrition",
+        calories: "Calories",
+        protein: "Protein",
+        carbs: "Carbs",
+        fat: "Fat",
+        fiber: "Fiber",
+        noNutrition: "Nutrition data is not available yet.",
+        breakdown: "Nutrition breakdown",
+      },
+      pantry: {
+        title: "Your pantry",
+        ingredient: "Ingredient",
+        quantity: "Quantity",
+        unit: "Unit",
+        actions: "Actions",
+        edit: "Edit",
+        delete: "Delete",
+        addIngredient: "Add Ingredient",
+        suggestRecipes: "Suggest recipes",
+        suggesting: "Suggesting...",
+        suggestions: "Suggestions",
+        noSuggestions: "No suggestions yet. Click \"Suggest recipes\".",
+        invalidIngredientError: "Please add at least one valid ingredient with quantity and unit.",
+        fetchError: "Could not fetch recipe suggestions.",
+      },
+      pantryModal: {
+        editTitle: "Edit Ingredient",
+        addTitle: "Add Ingredient",
+        name: "Name:",
+        quantity: "Quantity:",
+        unit: "Unit:",
+        namePlaceholder: "e.g., eggs, flour, milk",
+        cancel: "Cancel",
+        add: "Add",
+        update: "Update",
+      },
+      favorite: {
+        add: "Add to favorites",
+        remove: "Remove from favorites",
+      },
+    },
+  },
+  sv: {
+    translation: {
+      common: {
+        language: "Språk",
+      },
+      header: {
+        searchRecipes: "Sök recept",
+        search: "Sök",
+      },
+      sidebar: {
+        toggle: "Visa/dölj sidomeny",
+        home: "Hem",
+        recipes: "Recept",
+        categoriesSoon: "(kategorier kommer senare)",
+      },
+      home: {
+        aboutTitle: "Om MealMatch",
+        aboutText: "MealMatch hjälper dig hitta recept baserat på vad du redan har hemma.",
+        favorites: "Favoriter",
+        noFavorites: "Inga favoriter än. Tryck på ett hjärta under Recept.",
+      },
+      recipes: {
+        title: "Recept",
+        clearFilters: "Rensa filter",
+        searchPlaceholder: "Testa tonfisk, tacos, havre...",
+        mealType: "Måltidstyp",
+        category: "Kategori",
+        results: "Resultat",
+        resultCount_one: "{{count}} recept",
+        resultCount_other: "{{count}} recept",
+        noResults: "Inga recept matchar sökningen än. Testa färre filter eller ett bredare sökord.",
+      },
+      details: {
+        back: "Tillbaka",
+        ingredients: "Ingredienser",
+        noIngredients: "Ingredienser är inte tillgängliga än.",
+        instructions: "Instruktioner",
+        noInstructions: "Instruktioner är inte tillgängliga än.",
+        nutrition: "Näringsvärde",
+        calories: "Kalorier",
+        protein: "Protein",
+        carbs: "Kolhydrater",
+        fat: "Fett",
+        fiber: "Fiber",
+        noNutrition: "Näringsdata är inte tillgänglig än.",
+        breakdown: "Näringsfördelning",
+      },
+      pantry: {
+        title: "Ditt skafferi",
+        ingredient: "Ingrediens",
+        quantity: "Mängd",
+        unit: "Enhet",
+        actions: "Åtgärder",
+        edit: "Redigera",
+        delete: "Ta bort",
+        addIngredient: "Lägg till ingrediens",
+        suggestRecipes: "Föreslå recept",
+        suggesting: "Tar fram förslag...",
+        suggestions: "Förslag",
+        noSuggestions: "Inga förslag än. Klicka på \"Föreslå recept\".",
+        invalidIngredientError: "Lägg till minst en giltig ingrediens med mängd och enhet.",
+        fetchError: "Kunde inte hämta receptförslag.",
+      },
+      pantryModal: {
+        editTitle: "Redigera ingrediens",
+        addTitle: "Lägg till ingrediens",
+        name: "Namn:",
+        quantity: "Mängd:",
+        unit: "Enhet:",
+        namePlaceholder: "t.ex. ägg, mjöl, mjölk",
+        cancel: "Avbryt",
+        add: "Lägg till",
+        update: "Uppdatera",
+      },
+      favorite: {
+        add: "Lägg till i favoriter",
+        remove: "Ta bort från favoriter",
+      },
+    },
+  },
+} as const;
+
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources,
+    fallbackLng: "en",
+    lng: "en",
+    supportedLngs: ["en", "sv"],
+    interpolation: {
+      escapeValue: false,
+    },
+    detection: {
+      order: ["localStorage", "navigator"],
+      caches: ["localStorage"],
+    },
+  });
+
+export default i18n;

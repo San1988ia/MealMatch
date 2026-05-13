@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from "react-i18next";
 import { Modal } from '../../components/Modal/Modal';
 import type { PantryItem } from './pantry.types';
 import './PantryModal.scss';
@@ -13,6 +14,7 @@ interface PantryModalProps {
 const commonUnits = ['pcs', 'kg', 'l', 'g', 'ml', 'cup', 'tbsp', 'tsp'];
 
 export function PantryModal({ isOpen, onClose, onSave, item }: PantryModalProps) {
+  const { t } = useTranslation();
   const [name, setName] = useState(item?.name || '');
   const [quantity, setQuantity] = useState(item?.quantity || 1);
   const [unit, setUnit] = useState(item?.unit || 'pcs');
@@ -39,18 +41,18 @@ export function PantryModal({ isOpen, onClose, onSave, item }: PantryModalProps)
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <h3 className="pantry-form__title">{item ? 'Edit Ingredient' : 'Add Ingredient'}</h3>
+      <h3 className="pantry-form__title">{item ? t("pantryModal.editTitle") : t("pantryModal.addTitle")}</h3>
       <div className="pantry-form__field">
-        <label>Name:</label>
+        <label>{t("pantryModal.name")}</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="e.g., eggs, flour, milk"
+          placeholder={t("pantryModal.namePlaceholder")}
         />
       </div>
       <div className="pantry-form__field">
-        <label>Quantity:</label>
+        <label>{t("pantryModal.quantity")}</label>
         <input
           type="number"
           value={quantity}
@@ -60,7 +62,7 @@ export function PantryModal({ isOpen, onClose, onSave, item }: PantryModalProps)
         />
       </div>
       <div className="pantry-form__field">
-        <label>Unit:</label>
+        <label>{t("pantryModal.unit")}</label>
         <select value={unit} onChange={(e) => setUnit(e.target.value)}>
           {commonUnits.map((u) => (
             <option key={u} value={u}>
@@ -70,9 +72,9 @@ export function PantryModal({ isOpen, onClose, onSave, item }: PantryModalProps)
         </select>
       </div>
       <div className="pantry-form__actions">
-        <button className="pantry-form__btn pantry-form__btn--cancel" onClick={onClose}>Cancel</button>
+        <button className="pantry-form__btn pantry-form__btn--cancel" onClick={onClose}>{t("pantryModal.cancel")}</button>
         <button className="pantry-form__btn pantry-form__btn--save" onClick={handleSave} disabled={!name.trim()}>
-          {item ? 'Update' : 'Add'}
+          {item ? t("pantryModal.update") : t("pantryModal.add")}
         </button>
       </div>
     </Modal>

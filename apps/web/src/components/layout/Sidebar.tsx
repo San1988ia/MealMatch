@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { NavPage } from "../../app/navigation.types";
 import "./Sidebar.scss";
 
@@ -9,6 +10,7 @@ type SidebarProps = {
 
 export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
 
   const handleNavigate = (page: NavPage) => {
     onNavigate(page);
@@ -21,7 +23,7 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
         <button
           className="ham-menu"
           onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle sidebar"
+          aria-label={t("sidebar.toggle")}
           type="button"
         >
           <span></span>
@@ -49,7 +51,7 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
             onClick={() => handleNavigate("home")}
             type="button"
           >
-            Home
+            {t("sidebar.home")}
           </button>
 
           <button
@@ -57,12 +59,12 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
             onClick={() => handleNavigate("recipes")}
             type="button"
           >
-            Recipes
+            {t("sidebar.recipes")}
           </button>
 
           <div className="sidebar__divider" />
 
-          <div className="sidebar__hint muted">(kategorier kommer senare)</div>
+          <div className="sidebar__hint muted">{t("sidebar.categoriesSoon")}</div>
         </div>
       </aside>
     </>

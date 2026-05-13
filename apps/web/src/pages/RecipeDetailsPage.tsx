@@ -1,4 +1,5 @@
 import type { Recipe } from "../features/recipes/types/recipe.types";
+import { useTranslation } from "react-i18next";
 import { useRecipeFavorite } from "../features/recipes/hooks/useRecipeFavorite";
 import "./RecipeDetailsPage.scss";
 
@@ -8,6 +9,7 @@ type RecipeDetailsPageProps = {
 };
 
 export function RecipeDetailsPage({ recipe, onBack }: RecipeDetailsPageProps) {
+  const { t } = useTranslation();
   const ingredients = recipe.ingredients ?? [];
   const instructions = recipe.instructions ?? [];
   const { isFavorited, toggleFavorite, favoriteAriaLabel } = useRecipeFavorite({
@@ -25,7 +27,7 @@ export function RecipeDetailsPage({ recipe, onBack }: RecipeDetailsPageProps) {
       onClick={onBack}
      >
   <span className="back-icon">←</span>
-  <span>Back</span>
+    <span>{t("details.back")}</span>
      </button>
 
         <div className="recipe-details__hero">
@@ -65,7 +67,7 @@ export function RecipeDetailsPage({ recipe, onBack }: RecipeDetailsPageProps) {
             </div>
             <p className="muted">{recipe.mealType}</p>
 
-            <h3>Ingredients</h3>
+            <h3>{t("details.ingredients")}</h3>
             {ingredients.length > 0 ? (
               <ul className="recipe-details__ingredients">
                 {ingredients.map((ingredient, index) => (
@@ -73,14 +75,14 @@ export function RecipeDetailsPage({ recipe, onBack }: RecipeDetailsPageProps) {
                 ))}
               </ul>
             ) : (
-              <p className="muted">Ingredients are not available yet.</p>
+              <p className="muted">{t("details.noIngredients")}</p>
             )}
           </div>
         </div>
 
         <div className="recipe-details__body">
           <section className="recipe-details__section">
-            <h3>Cooking instructions</h3>
+            <h3>{t("details.instructions")}</h3>
             {instructions.length > 0 ? (
               <ol className="recipe-details__instructions">
                 {instructions.map((step, index) => (
@@ -88,48 +90,48 @@ export function RecipeDetailsPage({ recipe, onBack }: RecipeDetailsPageProps) {
                 ))}
               </ol>
             ) : (
-              <p className="muted">Cooking instructions are not available yet.</p>
+              <p className="muted">{t("details.noInstructions")}</p>
             )}
           </section>
 
           <section className="recipe-details__section">
-            <h3>Nutrition</h3>
+            <h3>{t("details.nutrition")}</h3>
             {recipe.nutrition ? (
               <div className="recipe-details__nutrition-grid">
                 <div className="recipe-details__nutrition-item">
-                  <span>Calories</span>
+                  <span>{t("details.calories")}</span>
                   <strong>{recipe.nutrition.calories} kcal</strong>
                 </div>
                 <div className="recipe-details__nutrition-item">
-                  <span>Protein</span>
+                  <span>{t("details.protein")}</span>
                   <strong>{recipe.nutrition.proteinGrams} g</strong>
                 </div>
                 <div className="recipe-details__nutrition-item">
-                  <span>Carbs</span>
+                  <span>{t("details.carbs")}</span>
                   <strong>{recipe.nutrition.carbsGrams} g</strong>
                 </div>
                 <div className="recipe-details__nutrition-item">
-                  <span>Fat</span>
+                  <span>{t("details.fat")}</span>
                   <strong>{recipe.nutrition.fatGrams} g</strong>
                 </div>
                 {recipe.nutrition.fiberGrams != null ? (
                   <div className="recipe-details__nutrition-item">
-                    <span>Fiber</span>
+                    <span>{t("details.fiber")}</span>
                     <strong>{recipe.nutrition.fiberGrams} g</strong>
                   </div>
                 ) : null}
               </div>
             ) : (
-              <p className="muted">Nutrition data is not available yet.</p>
+              <p className="muted">{t("details.noNutrition")}</p>
             )}
 
             {recipe.nutrition ? (
               <div className="recipe-details__breakdown">
-                <p className="recipe-details__breakdown-title">Nutrition breakdown</p>
+                <p className="recipe-details__breakdown-title">{t("details.breakdown")}</p>
                 <ul>
-                  <li>Carbs: {recipe.nutrition.breakdown.carbs}%</li>
-                  <li>Protein: {recipe.nutrition.breakdown.protein}%</li>
-                  <li>Fat: {recipe.nutrition.breakdown.fat}%</li>
+                  <li>{t("details.carbs")}: {recipe.nutrition.breakdown.carbs}%</li>
+                  <li>{t("details.protein")}: {recipe.nutrition.breakdown.protein}%</li>
+                  <li>{t("details.fat")}: {recipe.nutrition.breakdown.fat}%</li>
                 </ul>
               </div>
             ) : null}

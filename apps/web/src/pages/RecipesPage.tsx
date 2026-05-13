@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useRecipeFavorite } from "../features/recipes/hooks/useRecipeFavorite";
 import { RecipeCard } from "../features/recipes/components/RecipeCard";
 import { RecipeColumn } from "../features/recipes/components/RecipeColumn";
@@ -70,6 +71,8 @@ export function RecipesPage({
   selectedDietTags,
   onSelectedDietTagsChange,
 }: RecipesPageProps) {
+  const { t } = useTranslation();
+
   const byTag = useMemo(() => {
     const map = new Map<DietTag, Recipe[]>();
     for (const tag of columns) map.set(tag, []);
@@ -130,11 +133,11 @@ export function RecipesPage({
     <div className="page">
       <section className="card">
         <div className="section-header recipes-page__header">
-          <h2>Recipes</h2>
+          <h2>{t("recipes.title")}</h2>
 
           {hasActiveFilters ? (
             <button className="recipes-filters__clear" type="button" onClick={clearFilters}>
-              Clear filters
+              {t("recipes.clearFilters")}
             </button>
           ) : null}
         </div>
@@ -142,19 +145,19 @@ export function RecipesPage({
         <div className="recipes-filters">
           <div className="recipes-filters__search">
             <label htmlFor="recipes-search" className="visually-hidden">
-              Search recipes
+              {t("header.searchRecipes")}
             </label>
             <input
               id="recipes-search"
               type="search"
-              placeholder="Try tuna, tacos, oats..."
+              placeholder={t("recipes.searchPlaceholder")}
               value={searchQuery}
               onChange={(event) => onSearchQueryChange(event.target.value)}
             />
           </div>
 
           <fieldset className="recipes-filters__group">
-            <legend>Meal type</legend>
+            <legend>{t("recipes.mealType")}</legend>
             <div className="recipes-filters__options">
               {mealTypeOptions.map((mealType) => (
                 <label key={mealType} className="recipes-filters__option">
@@ -170,7 +173,7 @@ export function RecipesPage({
           </fieldset>
 
           <fieldset className="recipes-filters__group">
-            <legend>Category</legend>
+            <legend>{t("recipes.category")}</legend>
             <div className="recipes-filters__options">
               {columns.map((tag) => (
                 <label key={tag} className="recipes-filters__option">
@@ -190,9 +193,9 @@ export function RecipesPage({
       {hasActiveFilters ? (
         <section className="card recipes-results">
           <div className="section-header recipes-results__header">
-            <h3>Results</h3>
+            <h3>{t("recipes.results")}</h3>
             <span className="muted">
-              {filteredRecipes.length} {filteredRecipes.length === 1 ? "recipe" : "recipes"}
+              {t("recipes.resultCount", { count: filteredRecipes.length })}
             </span>
           </div>
 
@@ -208,7 +211,7 @@ export function RecipesPage({
             </div>
           ) : (
             <p className="muted recipes-results__empty">
-              No recipes match that search yet. Try fewer filters or a broader keyword.
+              {t("recipes.noResults")}
             </p>
           )}
         </section>

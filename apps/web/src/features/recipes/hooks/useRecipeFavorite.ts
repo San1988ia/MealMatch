@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { useFavorites } from "../../favorites/context/useFavorites";
 
 type RecipeFavoriteInput = {
@@ -11,6 +12,7 @@ type RecipeFavoriteInput = {
 
 export function useRecipeFavorite(recipe: RecipeFavoriteInput) {
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+  const { t } = useTranslation();
 
   const isFavorited = isFavorite(recipe.id);
 
@@ -33,7 +35,7 @@ export function useRecipeFavorite(recipe: RecipeFavoriteInput) {
     isFavorited,
     toggleFavorite,
     favoriteAriaLabel: isFavorited
-      ? "Remove from favorites"
-      : "Add to favorites",
+      ? t("favorite.remove")
+      : t("favorite.add"),
   };
 }

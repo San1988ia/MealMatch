@@ -1,5 +1,6 @@
 import { AgGridReact } from "ag-grid-react";
 import { useMemo, useState, useCallback, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { suggestRecipes } from "../../lib/api";
 import { SuggestionsGrid } from "../recipes/components/SuggestionsGrid";
 import type { Suggestion } from "../recipes/types/suggestion.types";
@@ -15,6 +16,7 @@ import { PantryModal } from "./PantryModal";
 import "./PantryGrid.scss";
 
 export function PantryGrid() {
+  const { t } = useTranslation();
   const [rowData, setRowData] = useState<PantryItem[]>([
     { id: "1", name: "eggs", quantity: 6, unit: "pcs" },
     { id: "2", name: "flour", quantity: 1, unit: "kg" },
@@ -48,28 +50,28 @@ export function PantryGrid() {
 
   const columnDefs = useMemo(
     () => [
-      { field: "name", headerName: "Ingredient", editable: true, flex: 1 },
+      { field: "name", headerName: t("pantry.ingredient"), editable: true, flex: 1 },
       {
         field: "quantity",
-        headerName: "Quantity",
+        headerName: t("pantry.quantity"),
         editable: true,
         width: isCompact ? 95 : 120,
       },
       {
         field: "unit",
-        headerName: "Unit",
+        headerName: t("pantry.unit"),
         editable: true,
         width: isCompact ? 95 : 120,
       },
       {
-        headerName: "Actions",
+        headerName: t("pantry.actions"),
         width: isCompact ? 100 : 120,
         cellRenderer: (params: any) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
           <div className="pantry__cell-actions">
             <button
               className="pantry__cell-btn pantry__cell-btn--edit"
               onClick={() => handleEdit(params.data)}
-              title="Edit"
+              title={t("pantry.edit")}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
@@ -78,7 +80,7 @@ export function PantryGrid() {
             <button
               className="pantry__cell-btn pantry__cell-btn--delete"
               onClick={() => handleDelete(params.data.id)}
-              title="Delete"
+              title={t("pantry.delete")}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"/>
@@ -89,7 +91,7 @@ export function PantryGrid() {
         ),
       },
     ],
-    [handleEdit, handleDelete, isCompact],
+    [handleDelete, handleEdit, isCompact, t],
   );
 
   const handleSave = (item: PantryItem) => {
@@ -127,9 +129,7 @@ export function PantryGrid() {
         );
 
       if (pantry.length === 0) {
-        setError(
-          "Please add at least one valid ingredient with quantity and unit.",
-        );
+        setError(t("pantry.invalidIngredientError"));
         setSuggestions([]);
         return;
       }
@@ -137,7 +137,7 @@ export function PantryGrid() {
       const data = await suggestRecipes(pantry);
       setSuggestions(data.recipes);
     } catch (caughtError) {
-      setError("Could not fetch recipe suggestions.");
+      setError(t("pantry.fetchError"));
       console.error(caughtError);
     } finally {
       setIsLoading(false);
@@ -146,7 +146,7 @@ export function PantryGrid() {
 
   return (
     <div className="pantry-card">
-      <h2>Your pantry</h2>
+      <h2>{t("pantry.title")}</h2>
 
       {/* Keep both the wrapper and grid at an explicit height. */}
       <div className="pantry__grid-wrapper">
@@ -170,14 +170,14 @@ export function PantryGrid() {
 
       <div className="pantry__footer">
         <button className="pantry__add-btn" onClick={handleAdd}>
-          Add Ingredient
+          {t("pantry.addIngredient")}
         </button>
         <button
           className="pantry__suggest-btn"
           onClick={handleSuggest}
           disabled={isLoading}
         >
-          {isLoading ? "Suggesting..." : "Suggest recipes"}
+          {isLoading ? t("pantry.suggesting") : t("pantry.suggestRecipes")}
         </button>
       </div>
 
@@ -189,10 +189,10 @@ export function PantryGrid() {
       />
 
       <div className="pantry__suggestions">
-        <h3>Suggestions</h3>
+        <h3>{t("pantry.suggestions")}</h3>
         {error ? <p className="muted">{error}</p> : null}
         {!error && suggestions.length === 0 ? (
-          <p className="muted">No suggestions yet. Click "Suggest recipes".</p>
+          <p className="muted">{t("pantry.noSuggestions")}</p>
         ) : null}
         {suggestions.length > 0 ? (
           <SuggestionsGrid suggestions={suggestions} />

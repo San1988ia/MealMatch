@@ -1,4 +1,5 @@
 import type { FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 import type { NavPage } from "../../app/navigation.types.ts";
 import "./Header.scss";
 
@@ -15,6 +16,8 @@ export function Header({
   onRecipeSearchQueryChange,
   onRecipeSearchSubmit,
 }: HeaderProps) {
+  const { t, i18n } = useTranslation();
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onRecipeSearchSubmit();
@@ -37,21 +40,36 @@ export function Header({
       {currentPage !== "recipes" ? (
         <form className="header__search" onSubmit={handleSubmit} role="search">
           <label className="visually-hidden" htmlFor="header-recipe-search">
-            Search recipes
+            {t("header.searchRecipes")}
           </label>
           <input
             id="header-recipe-search"
             className="header__search-input"
             type="search"
-            placeholder="Search recipes"
+            placeholder={t("header.searchRecipes")}
             value={recipeSearchQuery}
             onChange={(event) => onRecipeSearchQueryChange(event.target.value)}
           />
           <button className="header__search-button" type="submit">
-            Search
+            {t("header.search")}
           </button>
         </form>
       ) : null}
+
+      <div className="header__actions">
+        <label className="visually-hidden" htmlFor="language-switcher">
+          {t("common.language")}
+        </label>
+        <select
+          id="language-switcher"
+          className="header__language-select"
+          value={i18n.language.startsWith("sv") ? "sv" : "en"}
+          onChange={(event) => i18n.changeLanguage(event.target.value)}
+        >
+          <option value="en">English</option>
+          <option value="sv">Svenska</option>
+        </select>
+      </div>
     </header>
   );
 }
