@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { FavoriteRecipe } from "../features/favorites/context/FavoritesContext";
 import { useFavorites } from "../features/favorites/context/useFavorites";
 import { RecipeCard } from "../features/recipes/components/RecipeCard";
+import { getLocalizedRecipeTitle } from "../features/recipes/lib/recipeLocalization";
 import { useRecipeFavorite } from "../features/recipes/hooks/useRecipeFavorite";
 
 function FavoriteRailCard({
@@ -12,6 +13,7 @@ function FavoriteRailCard({
   recipe: FavoriteRecipe;
   onOpenRecipe: (recipe: FavoriteRecipe) => void;
 }) {
+  const { t } = useTranslation();
   const { isFavorited, toggleFavorite, favoriteAriaLabel } = useRecipeFavorite({
     id: recipe.id,
     title: recipe.title,
@@ -22,7 +24,7 @@ function FavoriteRailCard({
 
   return (
     <RecipeCard
-      title={recipe.title}
+      title={getLocalizedRecipeTitle(t, recipe)}
       imageUrl={recipe.image}
       onClick={() => onOpenRecipe(recipe)}
       source={recipe.source}

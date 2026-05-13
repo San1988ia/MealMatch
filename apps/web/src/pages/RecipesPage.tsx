@@ -4,6 +4,11 @@ import { useRecipeFavorite } from "../features/recipes/hooks/useRecipeFavorite";
 import { RecipeCard } from "../features/recipes/components/RecipeCard";
 import { RecipeColumn } from "../features/recipes/components/RecipeColumn";
 import { recipesBoard } from "../features/recipes/data/mockRecipesBoard";
+import {
+  getLocalizedDietTag,
+  getLocalizedMealType,
+  getLocalizedRecipeTitle,
+} from "../features/recipes/lib/recipeLocalization";
 import type { DietTag, Recipe } from "../features/recipes/types/recipe.types";
 import "./RecipesBoard.scss";
 import "./RecipesFilters.scss";
@@ -31,6 +36,7 @@ function FilteredRecipeCard({
   recipe: Recipe;
   onOpenRecipe: (recipe: Recipe) => void;
 }) {
+  const { t } = useTranslation();
   const { isFavorited, toggleFavorite, favoriteAriaLabel } = useRecipeFavorite({
     id: recipe.id,
     title: recipe.title,
@@ -39,9 +45,9 @@ function FilteredRecipeCard({
 
   return (
     <RecipeCard
-      title={recipe.title}
-      subtitle={recipe.mealType}
-      tags={recipe.tags}
+      title={getLocalizedRecipeTitle(t, recipe)}
+      subtitle={getLocalizedMealType(t, recipe.mealType)}
+      tags={recipe.tags.map((tag) => getLocalizedDietTag(t, tag))}
       imageUrl={recipe.imageUrl}
       onClick={() => onOpenRecipe(recipe)}
       showFavoriteButton
@@ -88,9 +94,10 @@ export function RecipesPage({
 
   const filteredRecipes = useMemo(() => {
     return recipesBoard.filter((recipe) => {
+      const localizedTitle = getLocalizedRecipeTitle(t, recipe).toLowerCase();
       const matchesQuery =
         normalizedQuery.length === 0 ||
-        recipe.title.toLowerCase().includes(normalizedQuery);
+        localizedTitle.includes(normalizedQuery);
       const matchesMealType =
         selectedMealTypes.length === 0 ||
         selectedMealTypes.includes(recipe.mealType);
@@ -100,7 +107,7 @@ export function RecipesPage({
 
       return matchesQuery && matchesMealType && matchesDietTags;
     });
-  }, [normalizedQuery, selectedDietTags, selectedMealTypes]);
+  }, [normalizedQuery, selectedDietTags, selectedMealTypes, t]);
 
   const hasActiveFilters =
     normalizedQuery.length > 0 ||
@@ -166,7 +173,7 @@ export function RecipesPage({
                     checked={selectedMealTypes.includes(mealType)}
                     onChange={() => toggleMealType(mealType)}
                   />
-                  <span>{mealType}</span>
+                  <span>{getLocalizedMealType(t, mealType)}</span>
                 </label>
               ))}
             </div>
@@ -182,7 +189,7 @@ export function RecipesPage({
                     checked={selectedDietTags.includes(tag)}
                     onChange={() => toggleDietTag(tag)}
                   />
-                  <span>{tag}</span>
+                  <span>{getLocalizedDietTag(t, tag)}</span>
                 </label>
               ))}
             </div>

@@ -1,5 +1,6 @@
 import type { Recipe } from "../features/recipes/types/recipe.types";
 import { useTranslation } from "react-i18next";
+import { getLocalizedMealType, getLocalizedRecipeTitle } from "../features/recipes/lib/recipeLocalization";
 import { useRecipeFavorite } from "../features/recipes/hooks/useRecipeFavorite";
 import "./RecipeDetailsPage.scss";
 
@@ -35,7 +36,7 @@ export function RecipeDetailsPage({ recipe, onBack }: RecipeDetailsPageProps) {
             {recipe.imageUrl ? (
               <img
                 src={recipe.imageUrl}
-                alt={recipe.title}
+                alt={getLocalizedRecipeTitle(t, recipe)}
                 className="recipe-details__image"
               />
             ) : (
@@ -45,7 +46,7 @@ export function RecipeDetailsPage({ recipe, onBack }: RecipeDetailsPageProps) {
 
           <div className="recipe-details__meta">
             <div className="recipe-details__title-row">
-              <h2 className="recipe-details__title">{recipe.title}</h2>
+              <h2 className="recipe-details__title">{getLocalizedRecipeTitle(t, recipe)}</h2>
               <button
                 type="button"
                 className={`recipe-details__favorite-btn${isFavorited ? " is-active" : ""}`}
@@ -65,7 +66,7 @@ export function RecipeDetailsPage({ recipe, onBack }: RecipeDetailsPageProps) {
                 )}
               </button>
             </div>
-            <p className="muted">{recipe.mealType}</p>
+            <p className="muted">{getLocalizedMealType(t, recipe.mealType)}</p>
 
             <h3>{t("details.ingredients")}</h3>
             {ingredients.length > 0 ? (
