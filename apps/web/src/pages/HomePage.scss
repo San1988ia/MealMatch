@@ -1,0 +1,65 @@
+@use "../styles/variables" as *;
+
+.about-card {
+  position: relative;
+  background: #ffe881; 
+  border-radius: $radius-lg;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 2rem 2.5rem 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+  max-width: 700px;
+
+}
+
+.about-card__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #1b1616;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 2;
+}
+
+.about-card__close:hover,
+.about-card__close:focus {
+  color: #333;
+  outline: none;
+}
+
+.about-card h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.about-card p {
+  margin: 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+.about-card__reopen {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  background: #ffe881;
+  color: #5f4a00;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.about-card__reopen:hover,
+.about-card__reopen:focus-visible {
+  background: #ffefaa;
+  outline: none;
+}

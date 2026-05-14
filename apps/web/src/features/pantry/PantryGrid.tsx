@@ -1,9 +1,15 @@
 import { AgGridReact } from "ag-grid-react";
 import { useMemo, useState, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { suggestRecipes } from "../../lib/api";
-import { SuggestionsGrid } from "../recipes/components/SuggestionsGrid";
-import type { Suggestion } from "../recipes/types/suggestion.types";
+import { useNavigate } from "react-router-dom";
+import { RecipeCard } from "../recipes/components/RecipeCard";
+import { recipesBoard } from "../recipes/data/mockRecipesBoard";
+import {
+  getLocalizedDietTag,
+  getLocalizedMealType,
+  getLocalizedRecipeTitle,
+} from "../recipes/lib/recipeLocalization";
+import type { Recipe } from "../recipes/types/recipe.types";
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
@@ -17,6 +23,7 @@ import "./PantryGrid.scss";
 
 export function PantryGrid() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [rowData, setRowData] = useState<PantryItem[]>([
     { id: "1", name: "eggs", quantity: 6, unit: "pcs" },
     { id: "2", name: "flour", quantity: 1, unit: "kg" },
@@ -25,7 +32,7 @@ export function PantryGrid() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<PantryItem | undefined>();
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [suggestedRecipes, setSuggestedRecipes] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isCompact, setIsCompact] = useState(() =>
@@ -112,6 +119,20 @@ export function PantryGrid() {
     setIsModalOpen(true);
   };
 
+  const normalize = (value: string) => value.trim().toLowerCase();
+
+  const singularize = (value: string) =>
+    value.endsWith("s") ? value.slice(0, -1) : value;
+
+  const ingredientMatchesPantryItem = (
+    ingredientLine: string,
+    pantryItemName: string,
+  ) => {
+    const ingredient = singularize(normalize(ingredientLine));
+    const pantryName = singularize(normalize(pantryItemName));
+    return ingredient.includes(pantryName) || pantryName.includes(ingredient);
+  };
+
   const handleSuggest = async () => {
     setIsLoading(true);
     setError(null);
@@ -130,12 +151,39 @@ export function PantryGrid() {
 
       if (pantry.length === 0) {
         setError(t("pantry.invalidIngredientError"));
-        setSuggestions([]);
+        setSuggestedRecipes([]);
         return;
       }
 
-      const data = await suggestRecipes(pantry);
-      setSuggestions(data.recipes);
+      const pantryNames = pantry.map((item) => item.name);
+
+      const matchedRecipes = recipesBoard
+        .filter((recipe) => {
+          const recipeIngredients = recipe.ingredients ?? [];
+
+          return pantryNames.some((pantryName) =>
+            recipeIngredients.some((ingredientLine) =>
+              ingredientMatchesPantryItem(ingredientLine, pantryName),
+            ),
+          );
+        })
+        .map((recipe) => {
+          const recipeIngredients = recipe.ingredients ?? [];
+          const haveCount = pantryNames.filter((pantryName) =>
+            recipeIngredients.some((ingredientLine) =>
+              ingredientMatchesPantryItem(ingredientLine, pantryName),
+            ),
+          ).length;
+
+          return {
+            recipe,
+            score: haveCount / Math.max(recipeIngredients.length, 1),
+          };
+        })
+        .sort((a, b) => b.score - a.score)
+        .map((entry) => entry.recipe);
+
+      setSuggestedRecipes(matchedRecipes);
     } catch (caughtError) {
       setError(t("pantry.fetchError"));
       console.error(caughtError);
@@ -191,11 +239,26 @@ export function PantryGrid() {
       <div className="pantry__suggestions">
         <h3>{t("pantry.suggestions")}</h3>
         {error ? <p className="muted">{error}</p> : null}
-        {!error && suggestions.length === 0 ? (
+        {!error && suggestedRecipes.length === 0 ? (
           <p className="muted">{t("pantry.noSuggestions")}</p>
         ) : null}
-        {suggestions.length > 0 ? (
-          <SuggestionsGrid suggestions={suggestions} />
+        {suggestedRecipes.length > 0 ? (
+          <div className="pantry__recipe-cards">
+            {suggestedRecipes.map((recipe) => (
+                <RecipeCard
+                  key={recipe.id}
+                  title={getLocalizedRecipeTitle(t, recipe)}
+                  subtitle={getLocalizedMealType(t, recipe.mealType)}
+                  tags={recipe.tags.map((tag) => getLocalizedDietTag(t, tag))}
+                  imageUrl={recipe.imageUrl}
+                  onClick={() =>
+                    navigate(`/recipes/${recipe.id}`, {
+                      state: { recipe, backPage: "home" },
+                    })
+                  }
+                />
+            ))}
+          </div>
         ) : null}
       </div>
     </div>

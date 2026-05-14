@@ -24,8 +24,6 @@ body {
   color: $color-text;
 }
 
-// ── Layout ────────────────────────────────────────────────
-
 .layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -57,8 +55,6 @@ body {
   width: 100%;
   max-width: 1200px;
 }
-
-// Utilities 
 
 .muted {
   opacity: 0.7;
@@ -94,8 +90,6 @@ body {
   padding-bottom: 0.5rem;
 }
 
-// Responsive 
-
 @media (max-width: 900px) {
   .content {
     padding: 1rem;
@@ -108,7 +102,7 @@ body {
   }
 
   .content {
-    padding: 0.85rem;
+    padding: 0.8rem;
   }
 }
 
